@@ -149,11 +149,13 @@ export default function WifeTribute() {
         .wife-media-col {
           display: flex;
           justify-content: center;
+          height: 100%;
         }
         .wife-image-frame {
           position: relative;
           width: 100%;
-          max-width: 400px;
+          max-width: 460px;
+          height: 100%;
           border-radius: var(--radius-lg);
           overflow: hidden;
           background: var(--bg-card-alt);
@@ -163,9 +165,18 @@ export default function WifeTribute() {
         .wife-couple-img {
           width: 100%;
           height: 460px;
+          min-height: 440px;
           object-fit: cover;
+          object-position: top center;
           display: block;
           transition: transform 0.5s ease;
+        }
+        @media (min-width: 900px) {
+          .wife-couple-img {
+            height: 100%;
+            min-height: 580px;
+            max-height: 640px;
+          }
         }
         .wife-image-frame:hover .wife-couple-img {
           transform: scale(1.03);

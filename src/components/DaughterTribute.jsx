@@ -190,11 +190,13 @@ export default function DaughterTribute() {
         .daughter-media-col {
           display: flex;
           justify-content: center;
+          height: 100%;
         }
         .daughter-image-frame {
           position: relative;
           width: 100%;
-          max-width: 400px;
+          max-width: 460px;
+          height: 100%;
           border-radius: var(--radius-lg);
           overflow: hidden;
           background: var(--bg-card);
@@ -203,10 +205,19 @@ export default function DaughterTribute() {
         }
         .daughter-img {
           width: 100%;
-          height: 380px;
+          height: 440px;
+          min-height: 400px;
           object-fit: cover;
+          object-position: top center;
           display: block;
           transition: transform 0.5s ease;
+        }
+        @media (min-width: 900px) {
+          .daughter-img {
+            height: 100%;
+            min-height: 560px;
+            max-height: 620px;
+          }
         }
         .daughter-image-frame:hover .daughter-img {
           transform: scale(1.03);
