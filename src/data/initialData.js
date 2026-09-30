@@ -28,7 +28,25 @@ Happy Birthday, Daddy! I love you so, so much! 🍼💕`,
 };
 
 export const GALLERY_ITEMS = [
-  // --- Couple & Love (Dolapo & Dami) ---
+  // --- 1. Throwbacks & Childhood (Starts the gallery) ---
+  {
+    id: "g-throwback-1",
+    src: "/images/Throwback_Young.webp",
+    title: "Young & Bright",
+    category: "random",
+    categoryLabel: "Throwback",
+    caption: "The beginnings of a purposeful, inspiring life."
+  },
+  {
+    id: "g-throwback-2",
+    src: "/images/Throwback_Small.webp",
+    title: "Throwback: The Growing Years",
+    category: "random",
+    categoryLabel: "Throwback",
+    caption: "From childhood innocence to manhood — how faithful God has been."
+  },
+
+  // --- 2. Couple & Love (Dolapo & Dami) ---
   {
     id: "g-couple-1",
     src: "/images/PS_Dami_and_Dolapo2.webp",
@@ -46,30 +64,30 @@ export const GALLERY_ITEMS = [
     caption: "The radiant joy and laughter that defines their journey together."
   },
 
-  // --- Family & Fatherhood ---
+  // --- 3. Family & Joy (Odunmoluwa & Family) ---
   {
     id: "g-fam-1",
-    src: "/images/PS_Suit_Dami4.webp",
-    title: "Party Hat & Sweet Giggles",
-    category: "family",
-    categoryLabel: "Family & Joy",
-    caption: "Daddy in sharp navy blue holding baby Odunmoluwa in her celebratory party dress and hat."
-  },
-  {
-    id: "g-fam-2",
-    src: "/images/PS_Suit_Dami3.webp",
-    title: "Matching Smiles & Heritage",
-    category: "family",
-    categoryLabel: "Family & Joy",
-    caption: "Dami and his precious daughter Odunmoluwa beaming in matching vibrant Ankara."
-  },
-  {
-    id: "g-fam-3",
     src: "/images/PS_Odun_and_Daddy1.webp",
     title: "Father & Daughter Blessing",
     category: "family",
     categoryLabel: "Family & Joy",
     caption: "Daddy's gentle embrace — holding his precious jewel, Odunmoluwa."
+  },
+  {
+    id: "g-fam-2",
+    src: "/images/PS_Odun_and_Daddy2.webp",
+    title: "Joyful Bonding",
+    category: "family",
+    categoryLabel: "Family & Joy",
+    caption: "Pure joy, laughter, and sweet father-daughter moments."
+  },
+  {
+    id: "g-fam-3",
+    src: "/images/PS_Odun_and_Daddy3.webp",
+    title: "Daddy's Pride & Joy",
+    category: "family",
+    categoryLabel: "Family & Joy",
+    caption: "Treasured memories holding his little princess Odunmoluwa."
   },
   {
     id: "g-fam-4",
@@ -88,7 +106,25 @@ export const GALLERY_ITEMS = [
     caption: "Unforgettable memories with those who mean the world."
   },
 
-  // --- Portraits & Milestone ---
+  // --- 4. Faith & Purpose (Suit Dami) ---
+  {
+    id: "g-faith-1",
+    src: "/images/PS_Suit_Dami1.webp",
+    title: "Poise, Purpose & Quiet Strength",
+    category: "ministry",
+    categoryLabel: "Faith & Purpose",
+    caption: "A man of stature, vision, and steadfast faith stepping boldly into destiny."
+  },
+  {
+    id: "g-faith-2",
+    src: "/images/PS_Suit_Dami2.webp",
+    title: "Peace & Contemplation",
+    category: "ministry",
+    categoryLabel: "Faith & Purpose",
+    caption: "Reflective, grateful, and anchored in divine grace."
+  },
+
+  // --- 5. Portraits & Milestone ---
   {
     id: "g-port-1",
     src: "/images/PS_Trad_Dami1.webp",
@@ -107,55 +143,19 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-port-3",
-    src: "/images/PS_Suit_Dami1.webp",
-    title: "The Gentleman",
+    src: "/images/PS_Suit_Dami3.webp",
+    title: "Vibrant & Celebratory",
     category: "recent",
     categoryLabel: "Portraits",
-    caption: "Sharp, composed, and exuding quiet grace."
+    caption: "Radiant smiles, heritage, and joy for a milestone year."
   },
   {
     id: "g-port-4",
-    src: "/images/PS_Suit_Dami2.webp",
-    title: "Focused on Greatness",
+    src: "/images/PS_Suit_Dami4.webp",
+    title: "Sharp & Distinguished",
     category: "recent",
     categoryLabel: "Portraits",
-    caption: "Looking forward with gratitude for the journey so far."
-  },
-
-  // --- Faith & Purpose ---
-  {
-    id: "g-faith-1",
-    src: "/images/PS_Odun_and_Daddy3.webp",
-    title: "Poise, Purpose & Quiet Strength",
-    category: "ministry",
-    categoryLabel: "Faith & Purpose",
-    caption: "A man of stature, vision, and steadfast faith stepping boldly into destiny."
-  },
-  {
-    id: "g-faith-2",
-    src: "/images/PS_Odun_and_Daddy2.webp",
-    title: "Peace & Contemplation",
-    category: "ministry",
-    categoryLabel: "Faith & Purpose",
-    caption: "Reflective, grateful, and anchored in divine grace."
-  },
-
-  // --- Throwbacks & Candid Memories ---
-  {
-    id: "g-throwback-1",
-    src: "/images/Throwback_Small.webp",
-    title: "Throwback: The Growing Years",
-    category: "random",
-    categoryLabel: "Throwback",
-    caption: "From childhood innocence to manhood — how faithful God has been."
-  },
-  {
-    id: "g-throwback-2",
-    src: "/images/Throwback_Young.webp",
-    title: "Young & Bright",
-    category: "random",
-    categoryLabel: "Throwback",
-    caption: "The beginnings of a purposeful, inspiring life."
+    caption: "Sharp, composed, and exuding celebration grace."
   }
 ];
 
