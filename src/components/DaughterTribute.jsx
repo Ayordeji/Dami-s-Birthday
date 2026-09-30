@@ -69,7 +69,7 @@ export default function DaughterTribute() {
             <div className="daughter-media-col">
               <div className="daughter-image-frame">
                 <img
-                  src="/images/PS_Suit_Dami4.webp"
+                  src="/images/PS_Odun_and_Daddy3.webp"
                   alt="Dami and baby Odunmoluwa"
                   className="daughter-img"
                 />

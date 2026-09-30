@@ -97,7 +97,7 @@ export default function KeepsakeView({ isOpen, onClose, tributes }) {
             </h2>
 
             <div className="wife-dedication-layout">
-              <img src="/images/PS_Suit_Dami4.webp" alt="Odunmoluwa & Dami" className="book-inline-img" />
+              <img src="/images/PS_Odun_and_Daddy3.webp" alt="Odunmoluwa & Dami" className="book-inline-img" />
               <div className="book-text-body font-serif">
                 <p>To the best Daddy in the whole wide world! 🌟</p>
                 <p>
