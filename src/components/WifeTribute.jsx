@@ -138,7 +138,7 @@ export default function WifeTribute() {
           display: grid;
           grid-template-columns: 1fr;
           gap: 1.5rem;
-          align-items: center;
+          align-items: stretch;
         }
         @media (min-width: 900px) {
           .wife-card-grid {
@@ -150,33 +150,29 @@ export default function WifeTribute() {
           display: flex;
           justify-content: center;
           height: 100%;
+          min-height: 440px;
         }
         .wife-image-frame {
           position: relative;
           width: 100%;
-          max-width: 460px;
+          max-width: 480px;
           height: 100%;
+          min-height: 440px;
           border-radius: var(--radius-lg);
           overflow: hidden;
-          background: var(--bg-card-alt);
+          background: #262626;
           border: 1px solid var(--border-subtle);
           box-shadow: var(--shadow-soft);
         }
         .wife-couple-img {
+          position: absolute;
+          inset: 0;
           width: 100%;
-          height: 460px;
-          min-height: 440px;
+          height: 100%;
           object-fit: cover;
           object-position: top center;
           display: block;
           transition: transform 0.5s ease;
-        }
-        @media (min-width: 900px) {
-          .wife-couple-img {
-            height: 100%;
-            min-height: 580px;
-            max-height: 640px;
-          }
         }
         .wife-image-frame:hover .wife-couple-img {
           transform: scale(1.03);

@@ -191,33 +191,29 @@ export default function DaughterTribute() {
           display: flex;
           justify-content: center;
           height: 100%;
+          min-height: 440px;
         }
         .daughter-image-frame {
           position: relative;
           width: 100%;
-          max-width: 460px;
+          max-width: 480px;
           height: 100%;
+          min-height: 440px;
           border-radius: var(--radius-lg);
           overflow: hidden;
-          background: var(--bg-card);
+          background: #262626;
           border: 1px solid var(--border-subtle);
           box-shadow: var(--shadow-soft);
         }
         .daughter-img {
+          position: absolute;
+          inset: 0;
           width: 100%;
-          height: 440px;
-          min-height: 400px;
+          height: 100%;
           object-fit: cover;
           object-position: top center;
           display: block;
           transition: transform 0.5s ease;
-        }
-        @media (min-width: 900px) {
-          .daughter-img {
-            height: 100%;
-            min-height: 560px;
-            max-height: 620px;
-          }
         }
         .daughter-image-frame:hover .daughter-img {
           transform: scale(1.03);
