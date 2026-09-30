@@ -15,7 +15,7 @@ export default function WelcomeSurprise() {
           </div>
 
           <h2 className="welcome-heading font-serif">
-            Dami, this is a little corner created just for you. ❤️
+            Kabiyesi 👑, this is a little corner created just for you. ❤️
           </h2>
 
           <div className="welcome-letter-body font-serif">

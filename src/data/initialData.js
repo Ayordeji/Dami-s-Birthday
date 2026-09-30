@@ -194,7 +194,7 @@ export const INITIAL_TRIBUTES = [
     relationshipCategory: "family",
     threeWords: "Loved, Appreciated, Celebrated",
     appreciation: "Some people come into our lives and leave memories behind. Some become a part of our everyday lives, our stories, our prayers, and our hearts. Today, we celebrate one of those people.",
-    standoutQuality: "Dami (Kabiyesi), this is a little corner created just for you.",
+    standoutQuality: "Kabiyesi 👑, this is a little corner created just for you. ❤️",
     describeToStranger: "A man who touches every life around him with grace, love, and quiet strength.",
     birthdayWish: "Take your time. Read these words. Smile. Laugh. But most importantly, know this: You are loved. You are appreciated. You are celebrated. And your life is a blessing to more people than you probably realise. Welcome to your birthday surprise! 🎉❤️",
     prayer: "May God enlarge your coast, grant you peace, and surround you with favour on every side.",
