@@ -44,7 +44,7 @@ export default function KeepsakeView({ isOpen, onClose, tributes }) {
             <div className="cover-divider"></div>
 
             <div className="cover-portrait-frame">
-              <img src="/images/IMG_9182.webp" alt="Oluwadamilola" className="cover-portrait" />
+              <img src="/images/PS_Trad_Dami1.webp" alt="Oluwadamilola" className="cover-portrait" />
             </div>
 
             <div className="cover-curated-by font-serif">
@@ -65,7 +65,7 @@ export default function KeepsakeView({ isOpen, onClose, tributes }) {
             </h2>
 
             <div className="wife-dedication-layout">
-              <img src="/images/IMG_9174.webp" alt="Dolapo and Dami" className="book-inline-img" />
+              <img src="/images/PS_Dami_and_Dolapo1.webp" alt="Dolapo and Dami" className="book-inline-img" />
               <div className="book-text-body font-serif">
                 <p>
                   Walking by your side is one of God's greatest blessings in my life. You are a man of profound wisdom, boundless patience, unwavering integrity, and a heart that loves so deeply. Every day, I watch you show up for our family with strength, gentleness, and grace.
@@ -97,7 +97,7 @@ export default function KeepsakeView({ isOpen, onClose, tributes }) {
             </h2>
 
             <div className="wife-dedication-layout">
-              <img src="/images/IMG_family_navy_suit_daughter.webp" alt="Odunmoluwa & Dami" className="book-inline-img" />
+              <img src="/images/PS_Suit_Dami4.webp" alt="Odunmoluwa & Dami" className="book-inline-img" />
               <div className="book-text-body font-serif">
                 <p>To the best Daddy in the whole wide world! 🌟</p>
                 <p>

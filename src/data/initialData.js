@@ -31,7 +31,7 @@ export const GALLERY_ITEMS = [
   // --- Couple & Love (Dolapo & Dami) ---
   {
     id: "g-couple-1",
-    src: "/images/IMG_9175.webp",
+    src: "/images/PS_Dami_and_Dolapo2.webp",
     title: "Love, Grace & Partnership",
     category: "dolapo_and_dami",
     categoryLabel: "Couple & Love",
@@ -39,7 +39,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-couple-2",
-    src: "/images/IMG_9174.webp",
+    src: "/images/PS_Dami_and_Dolapo1.webp",
     title: "Joyful Hearts",
     category: "dolapo_and_dami",
     categoryLabel: "Couple & Love",
@@ -49,7 +49,7 @@ export const GALLERY_ITEMS = [
   // --- Family & Fatherhood ---
   {
     id: "g-fam-1",
-    src: "/images/IMG_family_navy_suit_daughter.webp",
+    src: "/images/PS_Suit_Dami4.webp",
     title: "Party Hat & Sweet Giggles",
     category: "family",
     categoryLabel: "Family & Joy",
@@ -57,7 +57,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-fam-2",
-    src: "/images/IMG_family_ankara_father_daughter_sitting.webp",
+    src: "/images/PS_Suit_Dami3.webp",
     title: "Matching Smiles & Heritage",
     category: "family",
     categoryLabel: "Family & Joy",
@@ -65,7 +65,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-fam-3",
-    src: "/images/IMG_9165.webp",
+    src: "/images/PS_Odun_and_Daddy1.webp",
     title: "Father & Daughter Blessing",
     category: "family",
     categoryLabel: "Family & Joy",
@@ -73,7 +73,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-fam-4",
-    src: "/images/IMG_9166.webp",
+    src: "/images/PS_family.webp",
     title: "The Arilewola Family",
     category: "family",
     categoryLabel: "Family & Joy",
@@ -81,7 +81,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-fam-5",
-    src: "/images/IMG_6299.webp",
+    src: "/images/Odun_on_Dami_Chest.webp",
     title: "Cherished Family Moments",
     category: "family",
     categoryLabel: "Family & Joy",
@@ -91,7 +91,7 @@ export const GALLERY_ITEMS = [
   // --- Portraits & Milestone ---
   {
     id: "g-port-1",
-    src: "/images/IMG_9182.webp",
+    src: "/images/PS_Trad_Dami1.webp",
     title: "Heritage, Honour & Strength",
     category: "recent",
     categoryLabel: "Portraits",
@@ -99,7 +99,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-port-2",
-    src: "/images/IMG_9183.webp",
+    src: "/images/PS_Trad_Dami2.webp",
     title: "Dignified & Distinguished",
     category: "recent",
     categoryLabel: "Portraits",
@@ -107,7 +107,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-port-3",
-    src: "/images/IMG_9171.webp",
+    src: "/images/PS_Suit_Dami1.webp",
     title: "The Gentleman",
     category: "recent",
     categoryLabel: "Portraits",
@@ -115,7 +115,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-port-4",
-    src: "/images/IMG_9172.webp",
+    src: "/images/PS_Suit_Dami2.webp",
     title: "Focused on Greatness",
     category: "recent",
     categoryLabel: "Portraits",
@@ -125,7 +125,7 @@ export const GALLERY_ITEMS = [
   // --- Faith & Purpose ---
   {
     id: "g-faith-1",
-    src: "/images/IMG_faith_purpose_armchair_full.webp",
+    src: "/images/PS_Odun_and_Daddy3.webp",
     title: "Poise, Purpose & Quiet Strength",
     category: "ministry",
     categoryLabel: "Faith & Purpose",
@@ -133,7 +133,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-faith-2",
-    src: "/images/IMG_faith_purpose_armchair_close.webp",
+    src: "/images/PS_Odun_and_Daddy2.webp",
     title: "Peace & Contemplation",
     category: "ministry",
     categoryLabel: "Faith & Purpose",
@@ -143,7 +143,7 @@ export const GALLERY_ITEMS = [
   // --- Throwbacks & Candid Memories ---
   {
     id: "g-throwback-1",
-    src: "/images/IMG_5828.webp",
+    src: "/images/Throwback_Small.webp",
     title: "Throwback: The Growing Years",
     category: "random",
     categoryLabel: "Throwback",
@@ -151,7 +151,7 @@ export const GALLERY_ITEMS = [
   },
   {
     id: "g-throwback-2",
-    src: "/images/IMG_5822.webp",
+    src: "/images/Throwback_Young.webp",
     title: "Young & Bright",
     category: "random",
     categoryLabel: "Throwback",

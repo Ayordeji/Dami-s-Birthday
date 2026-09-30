@@ -43,7 +43,7 @@ export default function WifeTribute() {
             <div className="wife-media-col">
               <div className="wife-image-frame">
                 <img 
-                  src="/images/IMG_9174.webp" 
+                  src="/images/PS_Dami_and_Dolapo1.webp" 
                   alt="Dami and Dolapo" 
                   className="wife-couple-img"
                 />

@@ -40,7 +40,7 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
         <div className="forty-hero-left">
           <div className="forty-image-container">
             <img 
-              src="/images/IMG_9182.webp" 
+              src="/images/PS_Trad_Dami1.webp" 
               alt="Oluwadamilola Arilewola"
               className="forty-hero-img"
             />
