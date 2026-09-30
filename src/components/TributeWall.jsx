@@ -246,51 +246,55 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
           justify-content: center;
           gap: 0.6rem;
         }
+        /* Masonry Multi-Column Grid (Lumon / Pinterest Style) */
         .tribute-cards-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-          margin-bottom: 4.5rem;
-          align-items: start;
+          column-count: 1;
+          column-gap: 1.25rem;
+          margin-bottom: 4rem;
         }
-        @media (min-width: 768px) {
+        @media (min-width: 680px) {
           .tribute-cards-grid {
-            grid-template-columns: repeat(2, 1fr);
+            column-count: 2;
+            column-gap: 1.25rem;
           }
         }
-        @media (min-width: 1120px) {
+        @media (min-width: 1040px) {
           .tribute-cards-grid {
-            grid-template-columns: repeat(3, 1fr);
+            column-count: 3;
+            column-gap: 1.25rem;
           }
         }
 
-        /* Luxury Editorial Tribute Card */
+        /* Compact Masonry Editorial Tribute Card */
         .tribute-editorial-card {
-          background: #ffffff;
-          border: 1px solid var(--border-subtle);
-          border-radius: 20px;
-          padding: 2.2rem 2rem;
+          break-inside: avoid;
+          page-break-inside: avoid;
           display: flex;
           flex-direction: column;
-          gap: 1.4rem;
-          box-shadow: 0 4px 20px rgba(38, 38, 38, 0.04);
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          gap: 0.95rem;
+          background: #ffffff;
+          border: 1px solid var(--border-subtle);
+          border-radius: 16px;
+          padding: 1.4rem;
+          margin-bottom: 1.25rem;
+          box-shadow: 0 3px 14px rgba(38, 38, 38, 0.03);
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
           position: relative;
         }
         .tribute-editorial-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 32px rgba(38, 38, 38, 0.08);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 26px rgba(38, 38, 38, 0.07);
           border-color: var(--border-medium);
         }
         .tribute-editorial-card.is-wife-card {
           background: #ffffff;
           border-color: rgba(199, 1, 1, 0.2);
-          box-shadow: 0 6px 24px rgba(199, 1, 1, 0.06);
+          box-shadow: 0 4px 18px rgba(199, 1, 1, 0.05);
         }
         .tribute-editorial-card.is-daughter-card {
           background: #ffffff;
           border-color: rgba(255, 204, 246, 0.8);
-          box-shadow: 0 6px 24px rgba(255, 204, 246, 0.2);
+          box-shadow: 0 4px 18px rgba(255, 204, 246, 0.15);
         }
 
         /* Card Top */
@@ -298,24 +302,24 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
           display: flex;
           align-items: flex-start;
           justify-content: space-between;
-          gap: 1rem;
-          padding-bottom: 1.1rem;
+          gap: 0.75rem;
+          padding-bottom: 0.85rem;
           border-bottom: 1px solid var(--border-subtle);
         }
         .author-info-group {
           display: flex;
           align-items: center;
-          gap: 0.85rem;
+          gap: 0.75rem;
         }
         .author-avatar-badge {
-          width: 42px;
-          height: 42px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           background: var(--bg-card);
           border: 1px solid var(--border-medium);
           color: #262626;
           font-family: var(--font-serif);
-          font-size: 1.15rem;
+          font-size: 1.05rem;
           font-weight: 500;
           display: flex;
           align-items: center;
@@ -325,24 +329,24 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
         .author-text-meta {
           display: flex;
           flex-direction: column;
-          gap: 0.2rem;
+          gap: 0.15rem;
         }
         .author-title {
-          font-size: 1.25rem;
-          font-weight: 400;
+          font-size: 1.15rem;
+          font-weight: 500;
           color: #262626;
           line-height: 1.2;
         }
         .author-relationship-pill {
-          font-size: 0.78rem;
+          font-size: 0.75rem;
           color: var(--text-muted);
           font-weight: 500;
         }
         .tribute-formatted-date {
-          font-size: 0.82rem;
+          font-size: 0.78rem;
           color: var(--text-muted);
           white-space: nowrap;
-          padding-top: 0.2rem;
+          padding-top: 0.15rem;
         }
 
         /* 3 Words Tag */
@@ -350,32 +354,32 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
           display: flex;
           align-items: center;
           flex-wrap: wrap;
-          gap: 0.45rem;
+          gap: 0.4rem;
           background: var(--bg-card);
           border-radius: var(--radius-full);
-          padding: 0.4rem 0.95rem;
+          padding: 0.35rem 0.85rem;
           width: fit-content;
         }
         .three-words-prefix {
-          font-size: 0.75rem;
+          font-size: 0.72rem;
           text-transform: uppercase;
           letter-spacing: 0.05em;
           color: var(--text-muted);
           font-weight: 600;
         }
         .three-words-content {
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           color: #262626;
           font-style: italic;
         }
 
         /* Main Wish */
         .main-wish-wrap {
-          padding: 0.2rem 0;
+          padding: 0.1rem 0;
         }
         .main-wish-text {
-          font-size: 1.2rem;
-          line-height: 1.65;
+          font-size: 1.08rem;
+          line-height: 1.6;
           color: #262626;
           font-weight: 400;
         }
@@ -385,27 +389,27 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
           background: var(--bg-canvas);
           border: 1px solid var(--border-subtle);
           border-left: 3px solid #262626;
-          border-radius: 0 12px 12px 0;
-          padding: 1.1rem 1.25rem;
+          border-radius: 0 10px 10px 0;
+          padding: 0.85rem 1rem;
           display: flex;
           flex-direction: column;
-          gap: 0.4rem;
+          gap: 0.3rem;
         }
         .prayer-box-header {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
+          gap: 0.35rem;
         }
         .prayer-label {
-          font-size: 0.75rem;
+          font-size: 0.72rem;
           text-transform: uppercase;
           letter-spacing: 0.06em;
           color: var(--text-secondary);
           font-weight: 600;
         }
         .prayer-body {
-          font-size: 1rem;
-          line-height: 1.65;
+          font-size: 0.95rem;
+          line-height: 1.6;
           color: #333333;
           font-style: italic;
         }
@@ -414,20 +418,20 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
         .editorial-detail-row {
           display: flex;
           flex-direction: column;
-          gap: 0.3rem;
-          padding-top: 0.6rem;
+          gap: 0.2rem;
+          padding-top: 0.5rem;
           border-top: 1px dashed var(--border-subtle);
         }
         .detail-tag {
-          font-size: 0.75rem;
+          font-size: 0.72rem;
           text-transform: uppercase;
           letter-spacing: 0.06em;
           color: var(--text-muted);
           font-weight: 600;
         }
         .detail-text {
-          font-size: 0.92rem;
-          line-height: 1.55;
+          font-size: 0.88rem;
+          line-height: 1.5;
           color: var(--text-secondary);
         }
 
