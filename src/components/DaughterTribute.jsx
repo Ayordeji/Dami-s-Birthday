@@ -35,24 +35,33 @@ export default function DaughterTribute() {
               </div>
 
               <h3 className="daughter-card-title font-serif">
-                From Your Little Blessing, Odunmoluwa 🍼
+                Happy Birthday, Daddy! 🍼
               </h3>
 
               <div className="daughter-letter-body font-serif">
                 <p>
-                  To the best Daddy in the whole wide world! 🌟
+                  I may be too little to write this myself, but Mummy says I should tell you how much I love you.
                 </p>
                 <p>
-                  Thank you for all the warm cuddles, the playful giggles, the piggyback rides, and the way you always make Mommy and me feel so safe, joyful, and loved.
+                  Thank you for always carrying me, cuddling me, playing with me and making me feel so loved and safe. I love being your little girl, and I hope you know that you are already my favourite Daddy in the whole world. ❤️
                 </p>
-                <p className="daughter-highlight font-sans">
-                  “I may be little now, but I already know that I have the greatest, sweetest, and coolest Daddy ever! Happy Birthday Daddy!” 💕
+                <p>
+                  I may not understand what birthdays are yet, but I know that today is a special day because it is the day my Daddy was born.
+                </p>
+                <div className="daughter-highlight font-sans">
+                  “Mummy says you are a wonderful husband, but to me, you are simply <strong>Daddy</strong> — my safe place, my strong arms and the person who loves me so much.”
+                </div>
+                <p>
+                  I pray that God keeps you for me for a very, very long time. May He bless you, protect you, make you happy and give you everything your heart desires.
+                </p>
+                <p style={{ fontStyle: 'italic', color: '#c70101', fontWeight: '500' }}>
+                  I love you so much, Daddy. Happy Birthday to my first love. ❤️
                 </p>
               </div>
 
               <div className="daughter-footer-wrap">
                 <div className="daughter-sign font-script">
-                  All my baby love & kisses, <span className="name-bold font-sans">Odunmoluwa 👶</span>
+                  Love, your little girl, <span className="name-bold font-sans">Odunmoluwa 🥹💕</span>
                 </div>
 
                 <button

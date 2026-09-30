@@ -1,6 +1,6 @@
 export const CELEBRANT_INFO = {
-  fullName: "Oluwadamilola Arilewola",
-  nicknames: "Dami / Damilola",
+  fullName: "Oluwadamilola \"Kabiyesi\" Arilewola",
+  nicknames: "Dami / Kabiyesi 👑",
   headline: "Celebrating a Man Worth Celebrating ❤️",
   birthdayDate: "2026-10-21T00:00:00", // October 21st
   shortIntro: `Today, we celebrate more than just your birthday. We celebrate the man you are, the lives you’ve touched, the love you give, and the many ways you show up for the people around you.
@@ -8,22 +8,49 @@ export const CELEBRANT_INFO = {
 As you begin another year, I wanted to create a little space where the people who love, appreciate and admire you can leave you a message, share a memory, and speak a prayer over your life.`,
   wifeName: "Dolapo Arilewola",
   wifeTributeTitle: "From the Woman Who Gets to Call You Husband",
-  wifeTributeMessage: `To my dearest Damilola,
+  wifeTributeMessage: `Oluwadamilola,
 
-Walking by your side is one of God's greatest blessings in my life. You are a man of profound wisdom, boundless patience, unwavering integrity, and a heart that loves so deeply. Every day, I watch you show up for our family with strength, gentleness, and grace.
+Oh, how sweet is your love.
 
-Thank you for being my anchor, my best friend, my greatest cheerleader, and the most incredible father to Odunmoluwa. Watching you hold her and guide our home brings tears of joy to my eyes.
+Sometimes I sit back and think about how far we’ve come, and I’m genuinely grateful that God chose you for me. From being my husband to becoming my best friend, my safe place, my biggest cheerleader, and now the most amazing father to our little girl, watching you grow into all these roles has been one of the most beautiful things for me.
 
-As you mark this special milestone, my prayer for you is that the Lord enlarges your coast, grants you the deepest desires of your heart, surrounds you with favour as with a shield, and satisfies you with long life, joy, and unfailing peace.
+You are not perfect, and neither am I, but I love that we get to do life together. Through the good days, the stressful days, the laughter, the disagreements, the prayers, and all the little moments in between, I would still choose you.
 
-Happy Birthday, my love! ❤️`,
+Thank you for loving me in the ways you do. Thank you for being patient with me, for showing up, for caring, for praying, and for being the man you are. And thank you for being such a beautiful father to Odunmoluwa. Watching you with her is one of those things that makes my heart so full. ❤️
+
+I pray that this new year brings you closer to everything God has prepared for you. May God strengthen you, enlarge you, bless the work of your hands, and give you wisdom for every season ahead. May you never lack help, favour, peace, or genuine people around you.
+
+I pray that you will continue to grow into the man God has called you to be, and that you will always have the grace to fulfil your purpose.
+
+I’m proud of you, Dami. More than I probably say.
+
+And if I had to do this life all over again, I would still want it to be with you.
+
+Happy Birthday, my love. ❤️
+
+Forever your girl,
+Your wife.`,
   daughterName: "Odunmoluwa",
   daughterTributeTitle: "From Your Little Blessing, Odunmoluwa",
-  daughterTributeMessage: `To the best Daddy in the whole wide world! 🌟
+  daughterTributeMessage: `Happy Birthday, Daddy!
 
-Thank you for all the warm hugs, the playful laughs, the piggyback rides, and the way you always make Mommy and me smile so brightly. I am so blessed to have you as my Daddy!
+I may be too little to write this myself, but Mummy says I should tell you how much I love you.
 
-Happy Birthday, Daddy! I love you so, so much! 🍼💕`,
+Thank you for always carrying me, cuddling me, playing with me and making me feel so loved and safe. I love being your little girl, and I hope you know that you are already my favourite Daddy in the whole world. ❤️
+
+I may not understand what birthdays are yet, but I know that today is a special day because it is the day my Daddy was born.
+
+Mummy says you are a wonderful husband, but to me, you are simply Daddy — my safe place, my strong arms and the person who loves me so much.
+
+I pray that God keeps you for me for a very, very long time. May He bless you, protect you, make you happy and give you everything your heart desires.
+
+I love you so much, Daddy.
+
+Happy Birthday to my first love. ❤️
+
+Love,
+Your little girl,
+Odunmoluwa 🥹💕`,
   mufcTagline: "Proud Red Devil Faithful 🔴⚽ Glory Glory Man United!",
 };
 
@@ -161,38 +188,58 @@ export const GALLERY_ITEMS = [
 
 export const INITIAL_TRIBUTES = [
   {
-    id: "t1",
-    name: "Aunty Dolapo",
-    relationship: "Wife & Soulmate",
+    id: "t0-welcome",
+    name: "A Note For You (Surprise) ❤️",
+    relationship: "Family & Cherished Loved Ones",
     relationshipCategory: "family",
-    threeWords: "Loving, Wise, Dependable",
-    appreciation: "How deeply he prioritizes our family and his constant, selfless love.",
-    standoutQuality: "His calm spirit and steadfast faith in every circumstance.",
-    describeToStranger: "A true gentleman with a pure heart who leaves everyone better than he met them.",
-    birthdayWish: "Happy Birthday my king! May this new chapter bring you endless joy, uncommon favour, and peace on every side.",
-    prayer: "May the Almighty God preserve your going out and coming in. May your light continue to shine brighter and brighter until the perfect day. Amen! 🙏🏽",
-    futureMessage: "Remember that this season was when God's promises manifested in greater dimensions. You are loved beyond words.",
+    threeWords: "Loved, Appreciated, Celebrated",
+    appreciation: "Some people come into our lives and leave memories behind. Some become a part of our everyday lives, our stories, our prayers, and our hearts. Today, we celebrate one of those people.",
+    standoutQuality: "Dami (Kabiyesi), this is a little corner created just for you.",
+    describeToStranger: "A man who touches every life around him with grace, love, and quiet strength.",
+    birthdayWish: "Take your time. Read these words. Smile. Laugh. But most importantly, know this: You are loved. You are appreciated. You are celebrated. And your life is a blessing to more people than you probably realise. Welcome to your birthday surprise! 🎉❤️",
+    prayer: "May God enlarge your coast, grant you peace, and surround you with favour on every side.",
+    futureMessage: "May you look back years from now and be reminded of how deeply and widely you are loved.",
     date: "2026-09-30",
-    likes: 24,
-    isWife: true,
+    likes: 52,
+    isWife: false,
+    isApproved: true,
     photoUrl: null
   },
   {
-    id: "t2",
-    name: "Odunmoluwa Arilewola",
-    relationship: "Daughter",
+    id: "t1",
+    name: "Dolapo (Wife) ❤️",
+    relationship: "Wife & Soulmate",
     relationshipCategory: "family",
-    threeWords: "Best Daddy Ever",
-    appreciation: "The way you carry me, play with me, and make me laugh!",
-    standoutQuality: "The warmest hugs and biggest smile.",
-    describeToStranger: "My superhero Daddy who can do anything!",
-    birthdayWish: "Happy Birthday Daddy! I love you to the moon and back! 💕",
-    prayer: "Dear God, please bless my daddy and give him a long happy life with us! 🙏🏽",
-    futureMessage: "Daddy, you're the best!",
+    threeWords: "My Safe Place, Best Friend, Cheerleader",
+    appreciation: "How sweet your love is, your patience, showing up, caring, and being such a beautiful father to Odunmoluwa.",
+    standoutQuality: "The way you lead our family and love me through all of life's moments.",
+    describeToStranger: "The love of my life, a man of purpose, and an exceptional husband and father.",
+    birthdayWish: "Oluwadamilola, oh how sweet is your love. I’m proud of you, Dami. More than I probably say. And if I had to do this life all over again, I would still want it to be with you. Happy Birthday, my love! ❤️",
+    prayer: "May God strengthen you, enlarge you, bless the work of your hands, and give you wisdom for every season ahead. May you never lack help, favour, peace, or genuine people around you.",
+    futureMessage: "Forever your girl, Your wife.",
     date: "2026-09-30",
-    likes: 19,
+    likes: 48,
+    isWife: true,
+    isApproved: true,
+    photoUrl: "/images/PS_Dami_and_Dolapo1.webp"
+  },
+  {
+    id: "t2",
+    name: "Odunmoluwa 🍼",
+    relationship: "Daughter (Daddy's Little Princess)",
+    relationshipCategory: "family",
+    threeWords: "Safe Place, Strong Arms, Best Daddy",
+    appreciation: "Always carrying me, cuddling me, playing with me and making me feel so loved and safe.",
+    standoutQuality: "My superhero Daddy who loves me so much.",
+    describeToStranger: "My favourite Daddy in the whole wide world!",
+    birthdayWish: "Happy Birthday to my first love! I love you so much, Daddy! ❤️",
+    prayer: "I pray that God keeps you for me for a very, very long time. May He bless you, protect you, make you happy and give you everything your heart desires. 🙏🏽",
+    futureMessage: "Love, your little girl, Odunmoluwa 🥹💕",
+    date: "2026-09-30",
+    likes: 36,
     isDaughter: true,
-    photoUrl: null
+    isApproved: true,
+    photoUrl: "/images/PS_Odun_and_Daddy3.webp"
   },
   {
     id: "t3",

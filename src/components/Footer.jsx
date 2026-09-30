@@ -17,7 +17,7 @@ export default function Footer({ onOpenSubmitModal, onOpenAdmin }) {
             <div className="footer-brand-col">
               <span className="footer-dot"></span>
               <h3 className="footer-title font-serif">
-                Oluwadamilola Arilewola
+                Oluwadamilola "Kabiyesi" Arilewola 👑
               </h3>
               <p className="footer-desc font-serif">
                 “Celebrating a Man Worth Celebrating ❤️”

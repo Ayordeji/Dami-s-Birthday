@@ -63,25 +63,37 @@ export default function WifeTribute() {
               </div>
 
               <h3 className="wife-card-title font-serif">
-                To My Dearest Damilola,
+                Oluwadamilola,
               </h3>
 
               <div className="wife-letter-body font-serif">
-                <p>
-                  Walking by your side is one of God's greatest blessings in my life. You are a man of profound wisdom, boundless patience, unwavering integrity, and a heart that loves so deeply. Every single day, I watch you show up for our family with strength, gentleness, and grace.
+                <p className="font-script intro-sweetness" style={{ fontSize: '1.45rem', color: '#c70101', margin: '0 0 0.5rem' }}>
+                  Oh, how sweet is your love.
                 </p>
                 <p>
-                  Thank you for being my anchor, my best friend, my greatest cheerleader, and the most incredible father to our baby, Odunmoluwa. Watching you hold her and guide our home brings tears of joy to my eyes.
+                  Sometimes I sit back and think about how far we’ve come, and I’m genuinely grateful that God chose you for me. From being my husband to becoming my best friend, my safe place, my biggest cheerleader, and now the most amazing father to our little girl, watching you grow into all these roles has been one of the most beautiful things for me.
                 </p>
-                <p className="wife-prayer-highlight font-sans">
-                  <strong>My prayer for you:</strong> As you mark this special milestone, my prayer is that the Lord enlarges your coast, grants you the deepest desires of your heart, surrounds you with favour as with a shield, and satisfies you with long life, continuous joy, and unfailing peace.
+                <p>
+                  You are not perfect, and neither am I, but I love that we get to do life together. Through the good days, the stressful days, the laughter, the disagreements, the prayers, and all the little moments in between, I would still choose you.
+                </p>
+                <p>
+                  Thank you for loving me in the ways you do. Thank you for being patient with me, for showing up, for caring, for praying, and for being the man you are. And thank you for being such a beautiful father to Odunmoluwa. Watching you with her is one of those things that makes my heart so full. ❤️
+                </p>
+                <div className="wife-prayer-highlight font-sans">
+                  <strong>My Prayer For You:</strong> I pray that this new year brings you closer to everything God has prepared for you. May God strengthen you, enlarge you, bless the work of your hands, and give you wisdom for every season ahead. May you never lack help, favour, peace, or genuine people around you. May you continue to grow into the man God has called you to be, and always have the grace to fulfil your purpose.
+                </div>
+                <p>
+                  I’m proud of you, Dami. More than I probably say. And if I had to do this life all over again, I would still want it to be with you.
+                </p>
+                <p style={{ fontStyle: 'italic', fontWeight: '500', color: 'var(--text-primary)' }}>
+                  Happy Birthday, my love. ❤️
                 </p>
               </div>
 
               <div className="wife-signature-wrap">
                 <div className="wife-sign-text">
-                  <span className="font-script sign-name">With all my love forever,</span>
-                  <strong className="sign-author font-sans">Dolapo (Your Wife)</strong>
+                  <span className="font-script sign-name">Forever your girl,</span>
+                  <strong className="sign-author font-sans">Your wife (Dolapo) ❤️</strong>
                 </div>
 
                 <button 

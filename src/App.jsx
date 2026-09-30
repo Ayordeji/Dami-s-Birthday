@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import WelcomeSurprise from './components/WelcomeSurprise';
 import WifeTribute from './components/WifeTribute';
 import DaughterTribute from './components/DaughterTribute';
 import Gallery from './components/Gallery';
@@ -145,6 +146,9 @@ export default function App() {
         onToggleNav={() => setIsNavOpen(prev => !prev)}
         isNavOpen={isNavOpen}
       />
+
+      {/* Birthday Surprise Welcome Letter */}
+      <WelcomeSurprise />
 
       {/* Special Dedication: Dolapo (Wife) */}
       <WifeTribute />

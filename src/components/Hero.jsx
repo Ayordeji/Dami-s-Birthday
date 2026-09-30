@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { PartyPopper, Menu, X, ArrowRight, Shield } from 'lucide-react';
+import React from 'react';
+import { PartyPopper, Menu, X, ArrowRight, Shield, Crown } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { CELEBRANT_INFO } from '../data/initialData';
 
@@ -19,6 +19,10 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
       {/* Mobile Top Bar: Placed before the image on mobile */}
       <div className="forty-mobile-topbar">
         <div className="forty-top-tag">
+          <span className="kabiyesi-tag-clean" title="Kabiyesi">
+            <Crown size={13} color="#b78103" />
+            <span>Kabiyesi 👑</span>
+          </span>
           <span className="mufc-tag-clean" title="Manchester United Faithful">
             <Shield size={13} className="text-red" />
             <span>Man United 🔴</span>
@@ -74,6 +78,10 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           {/* Top Bar on Desktop: Nav Trigger & Tag */}
           <div className="forty-hero-topbar desktop-only-topbar">
             <div className="forty-top-tag">
+              <span className="kabiyesi-tag-clean" title="Kabiyesi">
+                <Crown size={13} color="#b78103" />
+                <span>Kabiyesi 👑</span>
+              </span>
               <span className="mufc-tag-clean" title="Manchester United Faithful">
                 <Shield size={13} className="text-red" />
                 <span>Man United 🔴</span>
@@ -285,6 +293,24 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           .forty-hero-topbar {
             display: flex;
           }
+        }
+        .forty-top-tag {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: wrap;
+        }
+        .kabiyesi-tag-clean {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          font-size: 0.82rem;
+          font-weight: 600;
+          color: #262626;
+          background: #fff8e1;
+          padding: 0.35rem 0.8rem;
+          border-radius: var(--radius-full);
+          border: 1px solid #ffe082;
         }
         .mufc-tag-clean {
           display: inline-flex;
