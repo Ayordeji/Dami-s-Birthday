@@ -174,13 +174,24 @@ export default function Gallery() {
           display: flex;
           justify-content: center;
           flex-wrap: wrap;
-          gap: 0.6rem;
-          margin-bottom: 2.8rem;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+        }
+        @media (min-width: 768px) {
+          .gallery-filters {
+            gap: 0.6rem;
+            margin-bottom: 2.2rem;
+          }
         }
         .gallery-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-          gap: 1.5rem;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 1rem;
+        }
+        @media (min-width: 768px) {
+          .gallery-grid {
+            gap: 1.5rem;
+          }
         }
         @media (min-width: 1024px) {
           .gallery-grid {

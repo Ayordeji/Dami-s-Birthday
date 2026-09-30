@@ -65,15 +65,20 @@ export default function Footer({ onOpenSubmitModal }) {
 
       <style>{`
         .footer-section {
-          padding: 2.5rem 0 4rem;
+          padding: 1.5rem 0 2.5rem;
+        }
+        @media (min-width: 768px) {
+          .footer-section {
+            padding: 2rem 0 3.5rem;
+          }
         }
         .footer-card {
-          padding: 3.5rem 3rem;
+          padding: 1.75rem 1.25rem;
           background: var(--bg-card);
         }
-        @media (max-width: 640px) {
+        @media (min-width: 768px) {
           .footer-card {
-            padding: 2rem 1.5rem;
+            padding: 3rem 2.5rem;
           }
         }
         .footer-grid {

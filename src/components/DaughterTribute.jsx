@@ -85,21 +85,26 @@ export default function DaughterTribute() {
 
       <style>{`
         .daughter-section {
-          padding-top: 0;
+          padding: 0.75rem 0 1.5rem;
+        }
+        @media (min-width: 768px) {
+          .daughter-section {
+            padding: 1rem 0 3rem;
+          }
         }
         .daughter-card-wrapper {
-          padding: 3rem 2.5rem;
+          padding: 1.5rem 1.25rem;
           background: var(--bg-card-alt);
         }
-        @media (max-width: 640px) {
+        @media (min-width: 768px) {
           .daughter-card-wrapper {
-            padding: 1.8rem;
+            padding: 2.5rem 2.2rem;
           }
         }
         .daughter-card-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 2.5rem;
+          gap: 1.5rem;
           align-items: center;
         }
         @media (min-width: 900px) {

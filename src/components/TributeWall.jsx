@@ -203,14 +203,24 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
 
       <style>{`
         .tribute-wall-section {
-          padding: 5rem 0 6rem;
+          padding: 2rem 0 2.5rem;
+        }
+        @media (min-width: 768px) {
+          .tribute-wall-section {
+            padding: 3.5rem 0 4.5rem;
+          }
         }
         .tribute-controls-wrap {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 1.5rem;
-          margin-bottom: 3.5rem;
+          gap: 1.25rem;
+          margin-bottom: 2rem;
+        }
+        @media (min-width: 768px) {
+          .tribute-controls-wrap {
+            margin-bottom: 2.8rem;
+          }
         }
         .search-bar-wrap {
           position: relative;

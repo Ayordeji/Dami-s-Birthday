@@ -105,27 +105,27 @@ export default function WifeTribute() {
         .wife-section {
           position: relative;
           z-index: 2;
-          padding: 4rem 0 5rem;
+          padding: 1.25rem 0 1.5rem;
           clear: both;
         }
         @media (min-width: 768px) {
           .wife-section {
-            padding: 5rem 0 6rem;
+            padding: 2.5rem 0 3rem;
           }
         }
         .wife-card-wrapper {
-          padding: 3rem 2.5rem;
+          padding: 1.5rem 1.25rem;
           background: var(--bg-card);
         }
-        @media (max-width: 640px) {
+        @media (min-width: 768px) {
           .wife-card-wrapper {
-            padding: 1.8rem;
+            padding: 2.5rem 2.2rem;
           }
         }
         .wife-card-grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 2.5rem;
+          gap: 1.5rem;
           align-items: center;
         }
         @media (min-width: 900px) {
