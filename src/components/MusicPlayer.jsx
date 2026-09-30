@@ -2,55 +2,97 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
 export default function MusicPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const audioContextRef = useRef(null);
   const intervalRef = useRef(null);
 
   const playCelebrationChord = () => {
-    if (!audioContextRef.current) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioContextRef.current = new AudioContext();
+    try {
+      if (!audioContextRef.current) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContextRef.current = new AudioContext();
+      }
+      const ctx = audioContextRef.current;
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
+      const baseFreq = notes[Math.floor(Math.random() * notes.length)];
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
+
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.035, ctx.currentTime + 0.4);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.8);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 3.0);
+    } catch (e) {
+      // audio context not yet allowed
     }
-    const ctx = audioContextRef.current;
-    if (ctx.state === 'suspended') {
-      ctx.resume();
+  };
+
+  const startAudioEngine = () => {
+    try {
+      if (!audioContextRef.current) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioContextRef.current = new AudioContext();
+      }
+      const ctx = audioContextRef.current;
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      if (!intervalRef.current) {
+        playCelebrationChord();
+        intervalRef.current = setInterval(playCelebrationChord, 2200);
+      }
+      setIsPlaying(true);
+    } catch (e) {
+      console.warn('Audio waiting for user gesture:', e);
     }
+  };
 
-    const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
-    const baseFreq = notes[Math.floor(Math.random() * notes.length)];
-
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(baseFreq, ctx.currentTime);
-
-    gain.gain.setValueAtTime(0.001, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.035, ctx.currentTime + 0.4);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 2.8);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start();
-    osc.stop(ctx.currentTime + 3.0);
+  const stopAudioEngine = () => {
+    setIsPlaying(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    if (audioContextRef.current && audioContextRef.current.state === 'running') {
+      audioContextRef.current.suspend();
+    }
   };
 
   const toggleMusic = () => {
     if (!isPlaying) {
-      setIsPlaying(true);
-      playCelebrationChord();
-      intervalRef.current = setInterval(playCelebrationChord, 2200);
+      startAudioEngine();
     } else {
-      setIsPlaying(false);
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      stopAudioEngine();
     }
   };
 
   useEffect(() => {
+    startAudioEngine();
+
+    // Auto-resume on first interaction for browsers blocking zero-gesture autoplay
+    const unlockEvents = ['click', 'touchstart', 'scroll', 'keydown'];
+    const handleFirstInteraction = () => {
+      startAudioEngine();
+      unlockEvents.forEach(evt => window.removeEventListener(evt, handleFirstInteraction));
+    };
+
+    unlockEvents.forEach(evt => window.addEventListener(evt, handleFirstInteraction, { passive: true }));
+
     return () => {
+      unlockEvents.forEach(evt => window.removeEventListener(evt, handleFirstInteraction));
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
