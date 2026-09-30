@@ -15,7 +15,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 
-const ADMIN_PIN = 'dolapo'; // Passcode for Dolapo
+const ADMIN_PIN = 'dolly222'; // Passcode for Dolapo
 
 export default function AdminModerationModal({ 
   isOpen, 
@@ -35,12 +35,12 @@ export default function AdminModerationModal({
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const clean = pinInput.trim().toLowerCase();
-    if (clean === ADMIN_PIN || clean === 'dami2026' || clean === 'admin') {
+    const clean = pinInput.trim();
+    if (clean.toLowerCase() === ADMIN_PIN.toLowerCase()) {
       setIsAuthenticated(true);
       setErrorMsg('');
     } else {
-      setErrorMsg('Incorrect passcode. Please try "dolapo" or "dami2026"');
+      setErrorMsg('Incorrect passcode. Please check and try again.');
     }
   };
 
@@ -79,13 +79,13 @@ export default function AdminModerationModal({
             <div className="auth-input-group">
               <input
                 type="password"
-                placeholder="Enter passcode (e.g. dolapo)"
+                placeholder="Enter passcode"
                 value={pinInput}
                 onChange={(e) => setPinInput(e.target.value)}
                 className="admin-input"
                 autoFocus
               />
-              <button type="submit" className="btn btn-dark">
+              <button type="submit" className="btn btn-dark auth-submit-btn">
                 <span>Unlock Review Panel</span>
               </button>
             </div>
@@ -294,11 +294,11 @@ export default function AdminModerationModal({
           padding: 1rem;
         }
         .admin-dialog {
-          width: 100%;
-          max-width: 720px;
+          width: 95%;
+          max-width: 880px;
           max-height: 90vh;
           overflow-y: auto;
-          padding: 2rem;
+          padding: 2.25rem;
           border-radius: var(--radius-xl);
           background: var(--bg-canvas);
           border: 1px solid var(--border-medium);
@@ -307,6 +307,7 @@ export default function AdminModerationModal({
         }
         @media (max-width: 640px) {
           .admin-dialog {
+            width: 100%;
             padding: 1.25rem;
           }
         }
@@ -343,15 +344,15 @@ export default function AdminModerationModal({
         }
         .admin-auth-box {
           text-align: center;
-          padding: 2rem 1rem;
+          padding: 2.5rem 1rem;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 1rem;
+          gap: 1.2rem;
         }
         .auth-icon-wrap {
-          width: 64px;
-          height: 64px;
+          width: 68px;
+          height: 68px;
           border-radius: 50%;
           background: var(--bg-card);
           border: 1px solid var(--border-medium);
@@ -361,38 +362,46 @@ export default function AdminModerationModal({
           color: #262626;
         }
         .auth-title {
-          font-size: 1.6rem;
+          font-size: 1.75rem;
           color: #262626;
         }
         .auth-sub {
-          font-size: 0.95rem;
+          font-size: 0.98rem;
           color: var(--text-secondary);
-          max-width: 440px;
-          line-height: 1.5;
+          max-width: 480px;
+          line-height: 1.6;
         }
         .auth-input-group {
           display: flex;
+          align-items: center;
           gap: 0.75rem;
           width: 100%;
-          max-width: 380px;
-          margin-top: 0.5rem;
+          max-width: 480px;
+          margin-top: 0.75rem;
         }
-        @media (max-width: 500px) {
+        @media (max-width: 540px) {
           .auth-input-group {
             flex-direction: column;
+            align-items: stretch;
           }
         }
         .admin-input {
           flex: 1;
+          min-width: 0;
           background: #ffffff;
           border: 1px solid var(--border-medium);
           border-radius: var(--radius-md);
-          padding: 0.75rem 1rem;
-          font-size: 0.95rem;
+          padding: 0.8rem 1.1rem;
+          font-size: 1rem;
           outline: none;
         }
         .admin-input:focus {
           border-color: #262626;
+        }
+        .auth-submit-btn {
+          white-space: nowrap;
+          flex-shrink: 0;
+          padding: 0.8rem 1.4rem;
         }
         .auth-error {
           display: flex;
@@ -522,6 +531,8 @@ export default function AdminModerationModal({
         }
         .admin-card-actions {
           display: flex;
+          align-items: center;
+          flex-wrap: wrap;
           gap: 0.75rem;
           padding-top: 0.75rem;
           border-top: 1px solid var(--border-subtle);
@@ -533,11 +544,13 @@ export default function AdminModerationModal({
           background: #262626;
           color: #ffffff;
           border: none;
-          padding: 0.55rem 1.1rem;
+          padding: 0.6rem 1.2rem;
           border-radius: var(--radius-full);
           font-size: 0.85rem;
           font-weight: 500;
           cursor: pointer;
+          white-space: nowrap;
+          flex-shrink: 0;
           transition: all 0.2s ease;
         }
         .btn-approve:hover {
@@ -550,10 +563,12 @@ export default function AdminModerationModal({
           background: #ffffff;
           border: 1px solid var(--border-medium);
           color: #262626;
-          padding: 0.55rem 1rem;
+          padding: 0.6rem 1.1rem;
           border-radius: var(--radius-full);
           font-size: 0.85rem;
           cursor: pointer;
+          white-space: nowrap;
+          flex-shrink: 0;
         }
         .btn-delete {
           display: inline-flex;
@@ -562,10 +577,12 @@ export default function AdminModerationModal({
           background: #fff0f0;
           border: 1px solid #ffd6d6;
           color: #c70101;
-          padding: 0.55rem 1rem;
+          padding: 0.6rem 1.1rem;
           border-radius: var(--radius-full);
           font-size: 0.85rem;
           cursor: pointer;
+          white-space: nowrap;
+          flex-shrink: 0;
           margin-left: auto;
         }
         .btn-delete:hover {
