@@ -22,10 +22,6 @@ export default function Footer({ onOpenSubmitModal }) {
               <p className="footer-desc font-serif">
                 “Celebrating a Man Worth Celebrating ❤️”
               </p>
-              <div className="mufc-easter-tag">
-                <Shield size={14} className="text-red" />
-                <span>Glory Glory Man United • Red Devil Faithful 🔴⚽</span>
-              </div>
             </div>
 
             {/* Quick Links */}
@@ -55,7 +51,7 @@ export default function Footer({ onOpenSubmitModal }) {
 
           <div className="footer-bottom">
             <div className="footer-copyright">
-              <span>Made with love for <strong>Damilola</strong> • 21 October, 2026</span>
+              <span>Made with love by <a href="https://praisetechy.com" target="_blank" rel="noopener noreferrer" className="praisetechy-link">PraiseTechy</a></span>
             </div>
 
             <button onClick={scrollToTop} className="back-to-top-btn" title="Back to top">
@@ -163,6 +159,16 @@ export default function Footer({ onOpenSubmitModal }) {
           border-top: 1px solid var(--border-subtle);
           font-size: 0.85rem;
           color: var(--text-muted);
+        }
+        .praisetechy-link {
+          color: #262626;
+          font-weight: 600;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          transition: all 0.2s ease;
+        }
+        .praisetechy-link:hover {
+          color: #d81b60;
         }
         .back-to-top-btn {
           background: #ffffff;

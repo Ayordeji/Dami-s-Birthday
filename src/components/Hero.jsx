@@ -1,9 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PartyPopper, Menu, X, ArrowRight, Shield } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { CELEBRANT_INFO } from '../data/initialData';
 
 export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, isNavOpen }) {
+  const [count, setCount] = useState(1);
+
+  useEffect(() => {
+    const target = 35;
+    const duration = 1400; // ms
+    const startTime = performance.now();
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Smooth ease out cubic
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const currentVal = Math.floor(1 + easeProgress * (target - 1));
+      setCount(currentVal);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(target);
+      }
+    };
+
+    const animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
   const fireConfetti = () => {
     confetti({
       particleCount: 90,
@@ -95,7 +121,7 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
               Celebrating Damilola,
             </h1>
             <div className="forty-giant-number font-serif">
-              21
+              {count}
             </div>
             <p className="forty-headline-sub font-serif">
               “Celebrating a Man Worth Celebrating ❤️”
