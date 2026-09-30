@@ -4,32 +4,6 @@ import confetti from 'canvas-confetti';
 import { CELEBRANT_INFO } from '../data/initialData';
 
 export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, isNavOpen }) {
-  const [count, setCount] = useState(1);
-
-  useEffect(() => {
-    const target = 35;
-    const duration = 1400; // ms
-    const startTime = performance.now();
-
-    const animate = (currentTime) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Smooth ease out cubic
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      const currentVal = Math.floor(1 + easeProgress * (target - 1));
-      setCount(currentVal);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(target);
-      }
-    };
-
-    const animId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
   const fireConfetti = () => {
     confetti({
       particleCount: 90,
@@ -115,16 +89,16 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
             </button>
           </div>
 
-          {/* Center Main Content: "Celebrating Damilola," + Big Milestone */}
+          {/* Center Main Content: "Celebrating" + Big "Damilola," + Quote */}
           <div className="forty-hero-center">
-            <h1 className="forty-celebrating-title font-serif">
-              Celebrating Damilola,
+            <span className="forty-celebrating-tag font-sans">
+              CELEBRATING
+            </span>
+            <h1 className="forty-giant-name font-serif">
+              Damilola,
             </h1>
-            <div className="forty-giant-number font-serif">
-              {count}
-            </div>
             <p className="forty-headline-sub font-serif">
-              “Celebrating a Man Worth Celebrating ❤️”
+              “A Man Worth Celebrating ❤️”
             </p>
           </div>
 
@@ -361,44 +335,42 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
             padding: 0.5rem 0;
           }
         }
-        .forty-celebrating-title {
-          font-size: 2.1rem;
-          font-weight: 400;
-          color: #262626;
-          letter-spacing: -0.02em;
-          margin: 0 0 0.1rem;
-          line-height: 1.15;
+        .forty-celebrating-tag {
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: var(--text-muted);
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+          margin-bottom: 0.4rem;
+          display: block;
         }
         @media (min-width: 768px) {
-          .forty-celebrating-title {
-            font-size: 2.8rem;
+          .forty-celebrating-tag {
+            font-size: 1.05rem;
+            letter-spacing: 0.28em;
+            margin-bottom: 0.6rem;
           }
         }
-        @media (min-width: 1200px) {
-          .forty-celebrating-title {
-            font-size: 3.2rem;
-          }
-        }
-        .forty-giant-number {
-          font-size: clamp(5.5rem, 12vw, 11.5rem);
+        .forty-giant-name {
+          font-size: clamp(3.2rem, 8vw, 7.2rem);
           font-weight: 400;
           color: #262626;
-          line-height: 0.88;
-          letter-spacing: -0.04em;
-          margin: 0 0 0.5rem;
+          line-height: 0.95;
+          letter-spacing: -0.035em;
+          margin: 0 0 0.85rem;
           user-select: none;
         }
         .forty-headline-sub {
-          font-size: 1.05rem;
+          font-size: 1.15rem;
           color: var(--text-secondary);
           font-style: italic;
           max-width: 440px;
           margin: 0;
-          line-height: 1.35;
+          line-height: 1.4;
         }
         @media (min-width: 768px) {
           .forty-headline-sub {
-            font-size: 1.2rem;
+            font-size: 1.35rem;
           }
         }
 

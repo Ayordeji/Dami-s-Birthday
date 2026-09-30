@@ -29,13 +29,29 @@ export default function TributeModal({ isOpen, onClose, onAddTribute }) {
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 8 * 1024 * 1024) {
-        alert("Please select a photo under 8MB.");
-        return;
-      }
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, photoUrl: reader.result }));
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxDim = 1200;
+          let width = img.width;
+          let height = img.height;
+          if (width > height && width > maxDim) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else if (height > maxDim) {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          setFormData(prev => ({ ...prev, photoUrl: compressedDataUrl }));
+        };
+        img.src = event.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -53,17 +69,19 @@ export default function TributeModal({ isOpen, onClose, onAddTribute }) {
     setTimeout(() => {
       const newTribute = {
         id: "tribute-" + Date.now(),
-        name: formData.name,
-        relationship: formData.relationship || "Friend & Well-wisher",
+        name: formData.name.trim(),
+        relationship: formData.relationship.trim() || "Friend & Well-wisher",
         relationshipCategory: formData.relationshipCategory || "friends",
-        threeWords: formData.threeWords,
-        standoutQuality: formData.standoutQuality,
-        birthdayWish: formData.birthdayWish,
-        prayer: formData.prayer,
-        futureMessage: formData.futureMessage,
+        threeWords: formData.threeWords.trim(),
+        standoutQuality: formData.standoutQuality.trim(),
+        birthdayWish: formData.birthdayWish.trim(),
+        prayer: formData.prayer.trim(),
+        futureMessage: formData.futureMessage.trim(),
         photoUrl: formData.photoUrl,
         date: new Date().toISOString().split('T')[0],
-        likes: 1
+        likes: 1,
+        isApproved: false,
+        status: 'pending'
       };
 
       onAddTribute(newTribute);
@@ -76,7 +94,7 @@ export default function TributeModal({ isOpen, onClose, onAddTribute }) {
         origin: { y: 0.5 },
         colors: ['#262626', '#d4af37', '#ffccf6', '#c70101']
       });
-    }, 500);
+    }, 400);
   };
 
   const handleClose = () => {
@@ -124,10 +142,10 @@ export default function TributeModal({ isOpen, onClose, onAddTribute }) {
             </div>
             <h4 className="font-serif success-heading">Thank You, {formData.name}!</h4>
             <p className="success-msg font-serif">
-              Your heartfelt tribute, memories, and prayers have been added to Damilola's birthday wall and will be treasured in his keepsake book forever.
+              Your heartfelt tribute, memories, and prayers have been received! They have been submitted for review and will appear on Damilola's birthday wall shortly. ❤️
             </p>
             <button onClick={handleClose} className="btn btn-dark btn-lg">
-              <span>View On Tribute Wall</span>
+              <span>Done</span>
             </button>
           </div>
         ) : (

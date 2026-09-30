@@ -50,6 +50,7 @@ export async function fetchTributes() {
         futureMessage: item.future_message || '',
         likes: item.likes || 0,
         isWife: item.is_wife || false,
+        isApproved: item.is_approved !== undefined ? item.is_approved : true,
         photoUrl: item.photo_url || null,
         date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
       }));
@@ -69,6 +70,7 @@ export async function fetchTributes() {
         future_message: t.futureMessage,
         likes: t.likes || 0,
         is_wife: t.isWife || false,
+        is_approved: true,
         photo_url: t.photoUrl || null
       }));
 
@@ -92,6 +94,7 @@ export async function fetchTributes() {
           futureMessage: item.future_message || '',
           likes: item.likes || 0,
           isWife: item.is_wife || false,
+          isApproved: item.is_approved !== undefined ? item.is_approved : true,
           photoUrl: item.photo_url || null,
           date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
         }));
@@ -122,6 +125,7 @@ export async function createTribute(tribute) {
         future_message: tribute.futureMessage,
         likes: tribute.likes || 0,
         is_wife: tribute.isWife || false,
+        is_approved: tribute.isApproved !== undefined ? tribute.isApproved : false,
         photo_url: tribute.photoUrl || null
       };
 
@@ -146,6 +150,48 @@ export async function createTribute(tribute) {
   }
 
   return tribute;
+}
+
+// Approve a tribute in Supabase
+export async function approveTributeInDb(id) {
+  if (isSupabaseConfigured && supabase) {
+    try {
+      await supabase
+        .from('tributes')
+        .update({ is_approved: true })
+        .eq('id', id);
+    } catch (err) {
+      console.warn('Supabase approve update failed:', err);
+    }
+  }
+}
+
+// Hide / Unapprove a tribute in Supabase
+export async function hideTributeInDb(id) {
+  if (isSupabaseConfigured && supabase) {
+    try {
+      await supabase
+        .from('tributes')
+        .update({ is_approved: false })
+        .eq('id', id);
+    } catch (err) {
+      console.warn('Supabase hide update failed:', err);
+    }
+  }
+}
+
+// Delete a tribute from Supabase
+export async function deleteTributeFromDb(id) {
+  if (isSupabaseConfigured && supabase) {
+    try {
+      await supabase
+        .from('tributes')
+        .delete()
+        .eq('id', id);
+    } catch (err) {
+      console.warn('Supabase delete failed:', err);
+    }
+  }
 }
 
 // Like a tribute in Supabase

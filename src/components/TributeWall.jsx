@@ -6,12 +6,17 @@ import { CATEGORIES } from '../data/initialData';
 export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activePhotoModal, setActivePhotoModal] = useState(null);
 
   const filteredTributes = tributes.filter(t => {
+    // Only show approved tributes on the public wall
+    const isApproved = t.isApproved !== false && t.status !== 'pending';
+    if (!isApproved) return false;
+
     const matchesCat = selectedCategory === 'all' || t.relationshipCategory === selectedCategory;
     const matchesSearch = searchQuery === '' || 
       t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      t.relationship.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (t.relationship && t.relationship.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (t.birthdayWish && t.birthdayWish.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (t.prayer && t.prayer.toLowerCase().includes(searchQuery.toLowerCase())) ||
       (t.threeWords && t.threeWords.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -162,8 +167,13 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
 
               {/* Attached Photo */}
               {tribute.photoUrl && (
-                <div className="attached-photo-frame">
-                  <img src={tribute.photoUrl} alt="Memory with Damilola" />
+                <div 
+                  className="attached-photo-frame" 
+                  onClick={() => setActivePhotoModal(tribute.photoUrl)}
+                  title="Click to enlarge memory photo"
+                >
+                  <img src={tribute.photoUrl} alt={`Memory shared by ${tribute.name}`} />
+                  <span className="photo-zoom-hint font-sans">🔍 View Memory</span>
                 </div>
               )}
 
@@ -198,6 +208,18 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
             <ArrowRight size={16} />
           </button>
         </div>
+
+        {/* Attached Photo Modal */}
+        {activePhotoModal && (
+          <div className="tribute-photo-lightbox" onClick={() => setActivePhotoModal(null)}>
+            <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+              <img src={activePhotoModal} alt="Enlarged Memory" />
+              <button className="lightbox-close" onClick={() => setActivePhotoModal(null)}>
+                ✕
+              </button>
+            </div>
+          </div>
+        )}
 
       </div>
 
@@ -447,16 +469,73 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
 
         /* Attached Photo */
         .attached-photo-frame {
+          position: relative;
           border-radius: 12px;
           overflow: hidden;
           max-height: 220px;
           border: 1px solid var(--border-subtle);
+          cursor: pointer;
+          transition: transform 0.2s ease;
+        }
+        .attached-photo-frame:hover {
+          transform: scale(1.02);
         }
         .attached-photo-frame img {
           width: 100%;
           height: 100%;
+          max-height: 220px;
           object-fit: cover;
           display: block;
+        }
+        .photo-zoom-hint {
+          position: absolute;
+          bottom: 8px;
+          right: 8px;
+          background: rgba(0, 0, 0, 0.7);
+          color: #ffffff;
+          font-size: 0.72rem;
+          padding: 0.2rem 0.5rem;
+          border-radius: var(--radius-full);
+          backdrop-filter: blur(4px);
+        }
+        .tribute-photo-lightbox {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(8px);
+          z-index: 1300;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+        }
+        .lightbox-content {
+          position: relative;
+          max-width: 90vw;
+          max-height: 85vh;
+        }
+        .lightbox-content img {
+          max-width: 100%;
+          max-height: 85vh;
+          border-radius: 12px;
+          object-fit: contain;
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox-close {
+          position: absolute;
+          top: -14px;
+          right: -14px;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: none;
+          color: #262626;
+          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
         }
 
         /* Card Bottom */

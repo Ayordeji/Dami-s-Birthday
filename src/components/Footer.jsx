@@ -1,7 +1,7 @@
 import React from 'react';
-import { Shield, ArrowUp, ArrowRight } from 'lucide-react';
+import { Shield, ArrowUp, ArrowRight, ShieldCheck } from 'lucide-react';
 
-export default function Footer({ onOpenSubmitModal }) {
+export default function Footer({ onOpenSubmitModal, onOpenAdmin }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -52,6 +52,10 @@ export default function Footer({ onOpenSubmitModal }) {
           <div className="footer-bottom">
             <div className="footer-copyright">
               <span>Made with love by <a href="https://praisetechy.com" target="_blank" rel="noopener noreferrer" className="praisetechy-link">PraiseTechy</a></span>
+              <button onClick={onOpenAdmin} className="admin-footer-link" title="Dolapo Review & Moderation Desk">
+                <ShieldCheck size={13} />
+                <span>Review Submissions</span>
+              </button>
             </div>
 
             <button onClick={scrollToTop} className="back-to-top-btn" title="Back to top">
@@ -174,6 +178,25 @@ export default function Footer({ onOpenSubmitModal }) {
         }
         .praisetechy-link:hover {
           color: #d81b60;
+        }
+        .admin-footer-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          background: transparent;
+          border: 1px solid var(--border-subtle);
+          color: var(--text-muted);
+          font-size: 0.78rem;
+          padding: 0.25rem 0.65rem;
+          border-radius: var(--radius-full);
+          cursor: pointer;
+          margin-left: 0.75rem;
+          transition: all 0.2s ease;
+        }
+        .admin-footer-link:hover {
+          background: #ffffff;
+          color: #262626;
+          border-color: #262626;
         }
         .back-to-top-btn {
           background: #ffffff;

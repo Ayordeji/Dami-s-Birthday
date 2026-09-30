@@ -9,20 +9,35 @@ import TributeModal from './components/TributeModal';
 import KeepsakeView from './components/KeepsakeView';
 import MusicPlayer from './components/MusicPlayer';
 import Footer from './components/Footer';
+import AdminModerationModal from './components/AdminModerationModal';
 import { 
   getLocalTributes, 
   saveLocalTributes, 
   fetchTributes, 
   createTribute, 
   likeTributeInDb, 
-  subscribeToRealtimeTributes 
+  subscribeToRealtimeTributes,
+  approveTributeInDb,
+  hideTributeInDb,
+  deleteTributeFromDb
 } from './services/tributeService';
 
 export default function App() {
   const [tributes, setTributes] = useState(getLocalTributes);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [isKeepsakeOpen, setIsKeepsakeOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+
+  // Check URL params for ?admin=true or ?review=true
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('admin') || params.get('review')) {
+        setIsAdminOpen(true);
+      }
+    } catch (e) {}
+  }, []);
 
   // Load from Supabase on mount & subscribe to live Realtime updates
   useEffect(() => {
@@ -55,7 +70,7 @@ export default function App() {
   }, []);
 
   const handleAddTribute = async (newTribute) => {
-    // Optimistic instant UI update
+    // Save to state
     setTributes(prev => {
       const updated = [newTribute, ...prev];
       saveLocalTributes(updated);
@@ -67,6 +82,33 @@ export default function App() {
     if (saved && saved.id !== newTribute.id) {
       setTributes(prev => prev.map(t => t.id === newTribute.id ? saved : t));
     }
+  };
+
+  const handleApproveTribute = (id) => {
+    setTributes(prev => {
+      const updated = prev.map(t => t.id === id ? { ...t, isApproved: true, status: 'approved' } : t);
+      saveLocalTributes(updated);
+      return updated;
+    });
+    approveTributeInDb(id);
+  };
+
+  const handleToggleHideTribute = (id) => {
+    setTributes(prev => {
+      const updated = prev.map(t => t.id === id ? { ...t, isApproved: false, status: 'pending' } : t);
+      saveLocalTributes(updated);
+      return updated;
+    });
+    hideTributeInDb(id);
+  };
+
+  const handleDeleteTribute = (id) => {
+    setTributes(prev => {
+      const updated = prev.filter(t => t.id !== id);
+      saveLocalTributes(updated);
+      return updated;
+    });
+    deleteTributeFromDb(id);
   };
 
   const handleLikeTribute = (id) => {
@@ -123,6 +165,7 @@ export default function App() {
       {/* Footer */}
       <Footer 
         onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
+        onOpenAdmin={() => setIsAdminOpen(true)}
       />
 
       {/* Ambient Music Player */}
@@ -140,6 +183,16 @@ export default function App() {
         isOpen={isKeepsakeOpen}
         onClose={() => setIsKeepsakeOpen(false)}
         tributes={tributes}
+      />
+
+      {/* Dolapo Review & Moderation Panel */}
+      <AdminModerationModal 
+        isOpen={isAdminOpen}
+        onClose={() => setIsAdminOpen(false)}
+        tributes={tributes}
+        onApproveTribute={handleApproveTribute}
+        onDeleteTribute={handleDeleteTribute}
+        onToggleHideTribute={handleToggleHideTribute}
       />
     </div>
   );
