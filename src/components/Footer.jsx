@@ -160,14 +160,36 @@ export default function Footer({ onOpenSubmitModal, onOpenAdmin }) {
         }
         .footer-bottom {
           display: flex;
+          flex-direction: column;
           align-items: center;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 1rem;
+          justify-content: center;
+          gap: 1.25rem;
           padding-top: 2rem;
           border-top: 1px solid var(--border-subtle);
           font-size: 0.85rem;
           color: var(--text-muted);
+          text-align: center;
+        }
+        @media (min-width: 640px) {
+          .footer-bottom {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+          }
+        }
+        .footer-copyright {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.65rem;
+        }
+        @media (min-width: 640px) {
+          .footer-copyright {
+            flex-direction: row;
+            align-items: center;
+            gap: 0.85rem;
+          }
         }
         .praisetechy-link {
           color: #262626;
@@ -182,15 +204,15 @@ export default function Footer({ onOpenSubmitModal, onOpenAdmin }) {
         .admin-footer-link {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 0.35rem;
-          background: transparent;
+          background: rgba(0, 0, 0, 0.03);
           border: 1px solid var(--border-subtle);
           color: var(--text-muted);
           font-size: 0.78rem;
-          padding: 0.25rem 0.65rem;
+          padding: 0.35rem 0.8rem;
           border-radius: var(--radius-full);
           cursor: pointer;
-          margin-left: 0.75rem;
           transition: all 0.2s ease;
         }
         .admin-footer-link:hover {
