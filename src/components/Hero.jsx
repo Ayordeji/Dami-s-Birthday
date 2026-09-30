@@ -151,22 +151,21 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
 
       <style>{`
         .forty-hero-section {
-          padding: 16px;
-          min-height: 100vh;
-          height: auto;
+          padding: 12px 14px 20px;
+          min-height: auto;
           display: flex;
           flex-direction: column;
           background-color: var(--bg-canvas);
           box-sizing: border-box;
           position: relative;
           z-index: 1;
-          margin-bottom: 2rem;
+          margin-bottom: 1.5rem;
         }
         @media (min-width: 900px) {
           .forty-hero-section {
-            padding: 24px;
+            padding: 20px 24px;
             min-height: 100vh;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
           }
         }
         .forty-mobile-topbar {
@@ -174,7 +173,7 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          margin-bottom: 14px;
+          margin-bottom: 10px;
         }
         @media (min-width: 900px) {
           .forty-mobile-topbar {
@@ -184,39 +183,41 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
         .forty-hero-wrapper {
           display: grid;
           grid-template-columns: 1fr;
-          gap: 24px;
+          gap: 16px;
           width: 100%;
-          min-height: calc(100vh - 48px);
           align-items: stretch;
           flex: 1;
         }
         @media (min-width: 900px) {
           .forty-hero-wrapper {
             grid-template-columns: 1.05fr 0.95fr;
-            gap: 32px;
+            gap: 28px;
+            min-height: calc(100vh - 40px);
           }
         }
 
         /* Left Image Container */
         .forty-hero-left {
           position: relative;
-          min-height: 480px;
-          height: 100%;
-          border-radius: 24px;
+          height: 52vh;
+          min-height: 360px;
+          max-height: 460px;
+          border-radius: 20px;
           overflow: hidden;
         }
         @media (min-width: 900px) {
           .forty-hero-left {
-            min-height: calc(100vh - 48px);
+            height: 100%;
+            min-height: calc(100vh - 40px);
             max-height: 92vh;
+            border-radius: 24px;
           }
         }
         .forty-image-container {
           position: relative;
           width: 100%;
           height: 100%;
-          min-height: 480px;
-          border-radius: 24px;
+          border-radius: inherit;
           overflow: hidden;
           background: #e8e6d1;
         }
@@ -231,10 +232,10 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
         /* Pink Rotating Stamp (Matches Forty) */
         .forty-stamp {
           position: absolute;
-          top: 24px;
-          left: 24px;
-          width: 96px;
-          height: 96px;
+          top: 16px;
+          left: 16px;
+          width: 76px;
+          height: 76px;
           border-radius: 50%;
           background-color: #ffccf6;
           display: flex;
@@ -245,12 +246,12 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
           transition: transform 0.25s ease;
         }
-        @media (max-width: 640px) {
+        @media (min-width: 900px) {
           .forty-stamp {
-            width: 80px;
-            height: 80px;
-            top: 16px;
-            left: 16px;
+            top: 24px;
+            left: 24px;
+            width: 96px;
+            height: 96px;
           }
         }
         .forty-stamp:hover {
@@ -286,14 +287,16 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          padding: 12px 8px;
-          min-height: 480px;
+          padding: 4px 4px 0;
+          min-height: auto;
+          gap: 16px;
         }
         @media (min-width: 900px) {
           .forty-hero-right {
-            padding: 16px 24px 16px 12px;
-            min-height: calc(100vh - 48px);
+            padding: 12px 20px 12px 10px;
+            min-height: calc(100vh - 40px);
             max-height: 92vh;
+            gap: 24px;
           }
         }
 
@@ -350,43 +353,52 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           justify-content: center;
           text-align: center;
           margin: auto 0;
-          padding: 1.5rem 0;
+          padding: 0.25rem 0;
+        }
+        @media (max-width: 899px) {
+          .forty-hero-center {
+            margin: 0;
+            padding: 0.5rem 0;
+          }
         }
         .forty-celebrating-title {
-          font-size: 2.2rem;
+          font-size: 2.1rem;
           font-weight: 400;
           color: #262626;
           letter-spacing: -0.02em;
-          margin-bottom: 0.25rem;
+          margin: 0 0 0.1rem;
+          line-height: 1.15;
         }
         @media (min-width: 768px) {
           .forty-celebrating-title {
-            font-size: 3rem;
+            font-size: 2.8rem;
           }
         }
         @media (min-width: 1200px) {
           .forty-celebrating-title {
-            font-size: 3.4rem;
+            font-size: 3.2rem;
           }
         }
         .forty-giant-number {
-          font-size: clamp(6rem, 13vw, 13rem);
+          font-size: clamp(5.5rem, 12vw, 11.5rem);
           font-weight: 400;
           color: #262626;
-          line-height: 0.9;
+          line-height: 0.88;
           letter-spacing: -0.04em;
-          margin: 0.25rem 0 0.75rem;
+          margin: 0 0 0.5rem;
           user-select: none;
         }
         .forty-headline-sub {
-          font-size: 1.15rem;
+          font-size: 1.05rem;
           color: var(--text-secondary);
           font-style: italic;
           max-width: 440px;
+          margin: 0;
+          line-height: 1.35;
         }
         @media (min-width: 768px) {
           .forty-headline-sub {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
           }
         }
 
@@ -396,10 +408,10 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           align-items: center;
           justify-content: space-between;
           width: 100%;
-          padding-top: 1rem;
+          padding-top: 0.5rem;
         }
         .forty-date-text {
-          font-size: 1.05rem;
+          font-size: 1rem;
           color: #262626;
           font-weight: 400;
           letter-spacing: -0.01em;
@@ -411,7 +423,7 @@ export default function Hero({ onOpenSubmitModal, onOpenKeepsake, onToggleNav, i
           font-family: var(--font-sans);
           font-size: 0.95rem;
           font-weight: 500;
-          padding: 0.75rem 1.6rem;
+          padding: 0.7rem 1.5rem;
           border-radius: var(--radius-full);
           cursor: pointer;
           transition: all 0.2s ease;
