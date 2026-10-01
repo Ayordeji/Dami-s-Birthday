@@ -9,17 +9,19 @@ export async function sendTributeNotification(tribute) {
   }
 
   try {
+    const senderName = tribute.name || 'A Guest';
     const payload = {
-      _subject: `🎉 New Birthday Tribute for Dami from ${tribute.name || 'a Guest'}!`,
-      _template: 'table',
+      _subject: `New Tribute Submission from ${senderName} - Dami Birthday Keepsake`,
+      _template: 'box',
       _captcha: 'false',
-      "Sender Name": tribute.name || 'Anonymous',
-      "Relationship to Dami": `${tribute.relationship || 'Friend'} (${tribute.relationshipCategory || 'Community'})`,
-      "Three Words": tribute.threeWords || '—',
-      "Birthday Wish": tribute.birthdayWish || '—',
-      "Prayer": tribute.prayer || '—',
-      "Photo Attached": tribute.photoUrl ? tribute.photoUrl : 'No photo uploaded',
-      "Review Action": "Visit the website footer, click 'Review Submissions', and enter passcode 'dolly222' to approve this tribute."
+      _autoresponse: 'false',
+      "Contributor Name": senderName,
+      "Relationship": `${tribute.relationship || 'Friend'} (${tribute.relationshipCategory || 'General'})`,
+      "Three Words for Dami": tribute.threeWords || 'Not provided',
+      "Birthday Message": tribute.birthdayWish || 'Not provided',
+      "Prayer": tribute.prayer || 'Not provided',
+      "Photo Link": tribute.photoUrl ? tribute.photoUrl : 'None',
+      "Approval Instructions": "Go to website footer, tap 'Review Submissions', enter passcode dolly222 to approve or manage."
     };
 
     const response = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
