@@ -47,9 +47,10 @@ export function saveLocalTributes(tributes) {
   }
 }
 
-// Fetch tributes from Supabase or fallback to LocalStorage
+// Fetch tributes from Supabase and merge with starter tributes
 export async function fetchTributes() {
   const deletedIds = getDeletedTributeIds();
+  const baseTributes = INITIAL_TRIBUTES.filter(t => !deletedIds.includes(t.id));
 
   if (!isSupabaseConfigured || !supabase) {
     return getLocalTributes();
@@ -61,11 +62,14 @@ export async function fetchTributes() {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (error) throw error;
+    if (error) {
+      console.warn('Supabase fetch error, using starter data:', error);
+      return getLocalTributes();
+    }
 
-    if (data && data.length > 0) {
+    if (data && Array.isArray(data)) {
       // Map database snake_case columns to frontend camelCase
-      const mapped = data
+      const dbTributes = data
         .filter(item => !deletedIds.includes(item.id))
         .map(item => ({
           id: item.id,
@@ -81,66 +85,29 @@ export async function fetchTributes() {
           futureMessage: item.future_message || '',
           likes: item.likes || 0,
           isWife: item.is_wife || false,
+          isDaughter: item.is_daughter || false,
           isApproved: item.is_approved !== undefined ? item.is_approved : true,
           photoUrl: item.photo_url || null,
           date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
         }));
-      return mapped;
-    } else {
-      // Seed initial tributes if database is freshly created
-      const seedPayloads = INITIAL_TRIBUTES
-        .filter(t => !deletedIds.includes(t.id))
-        .map(t => ({
-          name: t.name,
-          relationship: t.relationship,
-          relationship_category: t.relationshipCategory,
-          three_words: t.threeWords,
-          appreciation: t.appreciation,
-          standout_quality: t.standoutQuality,
-          describe_to_stranger: t.describeToStranger,
-          birthday_wish: t.birthdayWish,
-          prayer: t.prayer,
-          future_message: t.futureMessage,
-          likes: t.likes || 0,
-          is_wife: t.isWife || false,
-          is_approved: true,
-          photo_url: t.photoUrl || null
-        }));
 
-      if (seedPayloads.length === 0) {
-        return [];
+      // Combine database tributes with base starter tributes (avoiding duplicates)
+      const combined = [...dbTributes];
+      for (const base of baseTributes) {
+        const isDuplicate = dbTributes.some(
+          d => d.id === base.id || (d.name === base.name && d.birthdayWish === base.birthdayWish)
+        );
+        if (!isDuplicate) {
+          combined.push(base);
+        }
       }
 
-      const { data: inserted } = await supabase
-        .from('tributes')
-        .insert(seedPayloads)
-        .select();
-
-      if (inserted && inserted.length > 0) {
-        return inserted
-          .filter(item => !deletedIds.includes(item.id))
-          .map(item => ({
-            id: item.id,
-            name: item.name,
-            relationship: item.relationship,
-            relationshipCategory: item.relationship_category || 'friends',
-            threeWords: item.three_words || '',
-            appreciation: item.appreciation || '',
-            standoutQuality: item.standout_quality || '',
-            describeToStranger: item.describe_to_stranger || '',
-            birthdayWish: item.birthday_wish || '',
-            prayer: item.prayer || '',
-            futureMessage: item.future_message || '',
-            likes: item.likes || 0,
-            isWife: item.is_wife || false,
-            isApproved: item.is_approved !== undefined ? item.is_approved : true,
-            photoUrl: item.photo_url || null,
-            date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
-          }));
-      }
-
-      return getLocalTributes();
+      const finalList = combined.filter(t => !deletedIds.includes(t.id));
+      saveLocalTributes(finalList);
+      return finalList;
     }
+
+    return baseTributes;
   } catch (err) {
     console.warn('Supabase fetch error, falling back to local data:', err);
     return getLocalTributes();
