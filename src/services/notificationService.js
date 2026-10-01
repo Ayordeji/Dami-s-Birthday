@@ -1,7 +1,7 @@
 // Email Notification Service for New Tribute Submissions
 
 export async function sendTributeNotification(tribute) {
-  const recipientEmail = import.meta.env.VITE_NOTIFICATION_EMAIL || 'praisetechy001@gmail.com';
+  const recipientEmail = import.meta.env.VITE_NOTIFICATION_EMAIL || 'adedolapoarilewola@gmail.com';
 
   if (!recipientEmail) {
     console.warn('No notification email configured.');
