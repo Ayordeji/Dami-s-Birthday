@@ -3,19 +3,45 @@ import { INITIAL_TRIBUTES } from '../data/initialData';
 import { sendTributeNotification } from './notificationService';
 
 const LOCAL_STORAGE_KEY = 'dami_birthday_tributes';
+const DELETED_IDS_KEY = 'dami_deleted_tributes';
+
+export function getDeletedTributeIds() {
+  try {
+    const saved = localStorage.getItem(DELETED_IDS_KEY);
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function markTributeDeletedLocally(id) {
+  try {
+    const list = getDeletedTributeIds();
+    if (!list.includes(id)) {
+      list.push(id);
+      localStorage.setItem(DELETED_IDS_KEY, JSON.stringify(list));
+    }
+  } catch (err) {
+    console.error('Failed to save deleted ID:', err);
+  }
+}
 
 export function getLocalTributes() {
+  const deletedIds = getDeletedTributeIds();
   try {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return saved ? JSON.parse(saved) : INITIAL_TRIBUTES;
+    const list = saved ? JSON.parse(saved) : INITIAL_TRIBUTES;
+    return list.filter(t => !deletedIds.includes(t.id));
   } catch {
-    return INITIAL_TRIBUTES;
+    return INITIAL_TRIBUTES.filter(t => !deletedIds.includes(t.id));
   }
 }
 
 export function saveLocalTributes(tributes) {
   try {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tributes));
+    const deletedIds = getDeletedTributeIds();
+    const cleanList = tributes.filter(t => !deletedIds.includes(t.id));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cleanList));
   } catch (err) {
     console.error('Failed to save to localStorage:', err);
   }
@@ -23,6 +49,8 @@ export function saveLocalTributes(tributes) {
 
 // Fetch tributes from Supabase or fallback to LocalStorage
 export async function fetchTributes() {
+  const deletedIds = getDeletedTributeIds();
+
   if (!isSupabaseConfigured || !supabase) {
     return getLocalTributes();
   }
@@ -37,51 +65,9 @@ export async function fetchTributes() {
 
     if (data && data.length > 0) {
       // Map database snake_case columns to frontend camelCase
-      const mapped = data.map(item => ({
-        id: item.id,
-        name: item.name,
-        relationship: item.relationship,
-        relationshipCategory: item.relationship_category || 'friends',
-        threeWords: item.three_words || '',
-        appreciation: item.appreciation || '',
-        standoutQuality: item.standout_quality || '',
-        describeToStranger: item.describe_to_stranger || '',
-        birthdayWish: item.birthday_wish || '',
-        prayer: item.prayer || '',
-        futureMessage: item.future_message || '',
-        likes: item.likes || 0,
-        isWife: item.is_wife || false,
-        isApproved: item.is_approved !== undefined ? item.is_approved : true,
-        photoUrl: item.photo_url || null,
-        date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
-      }));
-      return mapped;
-    } else {
-      // Seed initial tributes if database is freshly created
-      const seedPayloads = INITIAL_TRIBUTES.map(t => ({
-        name: t.name,
-        relationship: t.relationship,
-        relationship_category: t.relationshipCategory,
-        three_words: t.threeWords,
-        appreciation: t.appreciation,
-        standout_quality: t.standoutQuality,
-        describe_to_stranger: t.describeToStranger,
-        birthday_wish: t.birthdayWish,
-        prayer: t.prayer,
-        future_message: t.futureMessage,
-        likes: t.likes || 0,
-        is_wife: t.isWife || false,
-        is_approved: true,
-        photo_url: t.photoUrl || null
-      }));
-
-      const { data: inserted } = await supabase
-        .from('tributes')
-        .insert(seedPayloads)
-        .select();
-
-      if (inserted && inserted.length > 0) {
-        return inserted.map(item => ({
+      const mapped = data
+        .filter(item => !deletedIds.includes(item.id))
+        .map(item => ({
           id: item.id,
           name: item.name,
           relationship: item.relationship,
@@ -99,6 +85,58 @@ export async function fetchTributes() {
           photoUrl: item.photo_url || null,
           date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
         }));
+      return mapped;
+    } else {
+      // Seed initial tributes if database is freshly created
+      const seedPayloads = INITIAL_TRIBUTES
+        .filter(t => !deletedIds.includes(t.id))
+        .map(t => ({
+          name: t.name,
+          relationship: t.relationship,
+          relationship_category: t.relationshipCategory,
+          three_words: t.threeWords,
+          appreciation: t.appreciation,
+          standout_quality: t.standoutQuality,
+          describe_to_stranger: t.describeToStranger,
+          birthday_wish: t.birthdayWish,
+          prayer: t.prayer,
+          future_message: t.futureMessage,
+          likes: t.likes || 0,
+          is_wife: t.isWife || false,
+          is_approved: true,
+          photo_url: t.photoUrl || null
+        }));
+
+      if (seedPayloads.length === 0) {
+        return [];
+      }
+
+      const { data: inserted } = await supabase
+        .from('tributes')
+        .insert(seedPayloads)
+        .select();
+
+      if (inserted && inserted.length > 0) {
+        return inserted
+          .filter(item => !deletedIds.includes(item.id))
+          .map(item => ({
+            id: item.id,
+            name: item.name,
+            relationship: item.relationship,
+            relationshipCategory: item.relationship_category || 'friends',
+            threeWords: item.three_words || '',
+            appreciation: item.appreciation || '',
+            standoutQuality: item.standout_quality || '',
+            describeToStranger: item.describe_to_stranger || '',
+            birthdayWish: item.birthday_wish || '',
+            prayer: item.prayer || '',
+            futureMessage: item.future_message || '',
+            likes: item.likes || 0,
+            isWife: item.is_wife || false,
+            isApproved: item.is_approved !== undefined ? item.is_approved : true,
+            photoUrl: item.photo_url || null,
+            date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+          }));
       }
 
       return getLocalTributes();
@@ -186,14 +224,25 @@ export async function hideTributeInDb(id) {
   }
 }
 
-// Delete a tribute from Supabase
+// Delete a tribute from Supabase and mark permanently deleted
 export async function deleteTributeFromDb(id) {
+  // Always mark permanently deleted locally
+  markTributeDeletedLocally(id);
+
   if (isSupabaseConfigured && supabase) {
     try {
-      await supabase
+      const { error } = await supabase
         .from('tributes')
         .delete()
         .eq('id', id);
+
+      if (error) {
+        console.warn('Supabase delete error, setting is_approved false as fallback:', error);
+        await supabase
+          .from('tributes')
+          .update({ is_approved: false })
+          .eq('id', id);
+      }
     } catch (err) {
       console.warn('Supabase delete failed:', err);
     }
