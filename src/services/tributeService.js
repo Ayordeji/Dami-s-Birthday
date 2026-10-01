@@ -77,6 +77,10 @@ export async function fetchTributes() {
         if (seenKeys.has(dedupeKey)) continue;
         seenKeys.add(dedupeKey);
 
+        const rawDescribe = item.describe_to_stranger || '';
+        const isPending = rawDescribe.includes('__STATUS:PENDING__');
+        const cleanDescribe = rawDescribe.replace('__STATUS:PENDING__', '').replace('__STATUS:APPROVED__', '').trim();
+
         dbTributes.push({
           id: item.id,
           name: item.name,
@@ -85,14 +89,15 @@ export async function fetchTributes() {
           threeWords: item.three_words || '',
           appreciation: item.appreciation || '',
           standoutQuality: item.standout_quality || '',
-          describeToStranger: item.describe_to_stranger || '',
+          describeToStranger: cleanDescribe,
           birthdayWish: item.birthday_wish || '',
           prayer: item.prayer || '',
           futureMessage: item.future_message || '',
           likes: item.likes || 0,
           isWife: item.is_wife || false,
           isDaughter: item.name?.toLowerCase().includes('odun') || false,
-          isApproved: true,
+          isApproved: !isPending,
+          status: isPending ? 'pending' : 'approved',
           photoUrl: item.photo_url || null,
           date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
         });
@@ -109,7 +114,7 @@ export async function fetchTributes() {
   }
 }
 
-// Save a new tribute to Supabase + LocalStorage
+// Save a new tribute to Supabase + LocalStorage (defaults to pending for review)
 export async function createTribute(tribute) {
   // Fire email notification in background
   sendTributeNotification(tribute).catch((err) => {
@@ -118,6 +123,8 @@ export async function createTribute(tribute) {
 
   if (isSupabaseConfigured && supabase) {
     try {
+      const describeWithStatus = (tribute.describeToStranger ? tribute.describeToStranger + ' ' : '') + '__STATUS:PENDING__';
+
       const payload = {
         name: tribute.name,
         relationship: tribute.relationship,
@@ -125,7 +132,7 @@ export async function createTribute(tribute) {
         three_words: tribute.threeWords || '',
         appreciation: tribute.appreciation || '',
         standout_quality: tribute.standoutQuality || '',
-        describe_to_stranger: tribute.describeToStranger || '',
+        describe_to_stranger: describeWithStatus,
         birthday_wish: tribute.birthdayWish || '',
         prayer: tribute.prayer || '',
         future_message: tribute.futureMessage || '',
@@ -146,6 +153,8 @@ export async function createTribute(tribute) {
         return {
           ...tribute,
           id: data.id,
+          isApproved: false,
+          status: 'pending',
           date: new Date(data.created_at).toISOString().split('T')[0]
         };
       }
@@ -154,17 +163,57 @@ export async function createTribute(tribute) {
     }
   }
 
-  return tribute;
+  return {
+    ...tribute,
+    isApproved: false,
+    status: 'pending'
+  };
 }
 
 // Approve a tribute in Supabase
 export async function approveTributeInDb(id) {
-  // Database approval handler
+  if (isSupabaseConfigured && supabase) {
+    try {
+      const { data } = await supabase
+        .from('tributes')
+        .select('describe_to_stranger')
+        .eq('id', id)
+        .single();
+
+      const current = data?.describe_to_stranger || '';
+      const updated = current.replace('__STATUS:PENDING__', '__STATUS:APPROVED__').trim();
+
+      await supabase
+        .from('tributes')
+        .update({ describe_to_stranger: updated })
+        .eq('id', id);
+    } catch (err) {
+      console.warn('Supabase approve update failed:', err);
+    }
+  }
 }
 
 // Hide / Unapprove a tribute in Supabase
 export async function hideTributeInDb(id) {
-  // Database hide handler
+  if (isSupabaseConfigured && supabase) {
+    try {
+      const { data } = await supabase
+        .from('tributes')
+        .select('describe_to_stranger')
+        .eq('id', id)
+        .single();
+
+      const current = data?.describe_to_stranger || '';
+      const updated = current.replace('__STATUS:APPROVED__', '').trim() + ' __STATUS:PENDING__';
+
+      await supabase
+        .from('tributes')
+        .update({ describe_to_stranger: updated })
+        .eq('id', id);
+    } catch (err) {
+      console.warn('Supabase hide update failed:', err);
+    }
+  }
 }
 
 // Delete a tribute from Supabase and mark permanently deleted
