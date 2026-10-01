@@ -1,10 +1,18 @@
 // Email Notification Service for New Tribute Submissions
 
-export async function sendTributeNotification(tribute) {
-  const recipientEmail = import.meta.env.VITE_NOTIFICATION_EMAIL || 'praisetechy001@gmail.com';
+const DEFAULT_RECIPIENTS = [
+  'adedolapoarilewola@gmail.com',
+  'praisetechy001@gmail.com'
+];
 
-  if (!recipientEmail) {
-    console.warn('No notification email configured.');
+export async function sendTributeNotification(tribute) {
+  const envEmail = import.meta.env.VITE_NOTIFICATION_EMAIL;
+  const recipients = envEmail 
+    ? envEmail.split(',').map(e => e.trim()).filter(Boolean)
+    : DEFAULT_RECIPIENTS;
+
+  if (!recipients || recipients.length === 0) {
+    console.warn('No notification emails configured.');
     return;
   }
 
@@ -24,21 +32,28 @@ export async function sendTributeNotification(tribute) {
       "Approval Instructions": "Go to website footer, tap 'Review Submissions', enter passcode dolly222 to approve or manage."
     };
 
-    const response = await fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(payload)
+    // Dispatch notifications to all configured recipients
+    const dispatchPromises = recipients.map(async (email) => {
+      try {
+        const response = await fetch(`https://formsubmit.co/ajax/${email}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+        if (response.ok) {
+          console.log(`Notification dispatched successfully to ${email}`);
+        }
+      } catch (err) {
+        console.warn(`Failed sending notification to ${email}:`, err);
+      }
     });
 
-    if (response.ok) {
-      console.log('Notification email dispatched successfully.');
-    } else {
-      console.warn('Notification email dispatch returned status:', response.status);
-    }
+    await Promise.allSettled(dispatchPromises);
   } catch (err) {
-    console.warn('Failed to send notification email:', err);
+    console.warn('Failed to send notification emails:', err);
   }
 }
+
