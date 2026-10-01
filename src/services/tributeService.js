@@ -68,10 +68,17 @@ export async function fetchTributes() {
     }
 
     if (data && Array.isArray(data)) {
-      // Map database snake_case columns to frontend camelCase
-      const dbTributes = data
-        .filter(item => !deletedIds.includes(item.id))
-        .map(item => ({
+      // Map database snake_case columns to frontend camelCase & deduplicate
+      const seenKeys = new Set();
+      const dbTributes = [];
+
+      for (const item of data) {
+        if (deletedIds.includes(item.id)) continue;
+        const dedupeKey = `${(item.name || '').trim().toLowerCase()}::${(item.birthday_wish || '').trim().toLowerCase()}`;
+        if (seenKeys.has(dedupeKey)) continue;
+        seenKeys.add(dedupeKey);
+
+        dbTributes.push({
           id: item.id,
           name: item.name,
           relationship: item.relationship,
@@ -85,19 +92,19 @@ export async function fetchTributes() {
           futureMessage: item.future_message || '',
           likes: item.likes || 0,
           isWife: item.is_wife || false,
-          isDaughter: item.is_daughter || false,
-          isApproved: item.is_approved !== undefined ? item.is_approved : true,
+          isDaughter: item.name?.toLowerCase().includes('odun') || false,
+          isApproved: true,
           photoUrl: item.photo_url || null,
           date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
-        }));
+        });
+      }
 
       // Combine database tributes with base starter tributes (avoiding duplicates)
       const combined = [...dbTributes];
       for (const base of baseTributes) {
-        const isDuplicate = dbTributes.some(
-          d => d.id === base.id || (d.name === base.name && d.birthdayWish === base.birthdayWish)
-        );
-        if (!isDuplicate) {
+        const baseKey = `${(base.name || '').trim().toLowerCase()}::${(base.birthdayWish || '').trim().toLowerCase()}`;
+        if (!seenKeys.has(baseKey)) {
+          seenKeys.add(baseKey);
           combined.push(base);
         }
       }
@@ -126,17 +133,16 @@ export async function createTribute(tribute) {
       const payload = {
         name: tribute.name,
         relationship: tribute.relationship,
-        relationship_category: tribute.relationshipCategory,
-        three_words: tribute.threeWords,
-        appreciation: tribute.appreciation,
-        standout_quality: tribute.standoutQuality,
-        describe_to_stranger: tribute.describeToStranger,
-        birthday_wish: tribute.birthdayWish,
-        prayer: tribute.prayer,
-        future_message: tribute.futureMessage,
+        relationship_category: tribute.relationshipCategory || 'friends',
+        three_words: tribute.threeWords || '',
+        appreciation: tribute.appreciation || '',
+        standout_quality: tribute.standoutQuality || '',
+        describe_to_stranger: tribute.describeToStranger || '',
+        birthday_wish: tribute.birthdayWish || '',
+        prayer: tribute.prayer || '',
+        future_message: tribute.futureMessage || '',
         likes: tribute.likes || 0,
         is_wife: tribute.isWife || false,
-        is_approved: tribute.isApproved !== undefined ? tribute.isApproved : false,
         photo_url: tribute.photoUrl || null
       };
 
