@@ -20,7 +20,8 @@ import {
   subscribeToRealtimeTributes,
   approveTributeInDb,
   hideTributeInDb,
-  deleteTributeFromDb
+  deleteTributeFromDb,
+  markTributeDeletedLocally
 } from './services/tributeService';
 
 export default function App() {
@@ -54,14 +55,31 @@ export default function App() {
 
     loadData();
 
-    // Subscribe to incoming tributes from other visitors live
-    const unsubscribe = subscribeToRealtimeTributes((newTribute) => {
-      setTributes(prev => {
-        if (prev.some(t => t.id === newTribute.id)) return prev;
-        const updated = [newTribute, ...prev];
-        saveLocalTributes(updated);
-        return updated;
-      });
+    // Subscribe to live Realtime events (INSERT, UPDATE, DELETE) across all devices
+    const unsubscribe = subscribeToRealtimeTributes({
+      onInsert: (newTribute) => {
+        setTributes(prev => {
+          if (prev.some(t => t.id === newTribute.id)) return prev;
+          const updated = [newTribute, ...prev];
+          saveLocalTributes(updated);
+          return updated;
+        });
+      },
+      onUpdate: (updatedTribute) => {
+        setTributes(prev => {
+          const updated = prev.map(t => t.id === updatedTribute.id ? updatedTribute : t);
+          saveLocalTributes(updated);
+          return updated;
+        });
+      },
+      onDelete: (deletedId) => {
+        markTributeDeletedLocally(deletedId);
+        setTributes(prev => {
+          const updated = prev.filter(t => t.id !== deletedId);
+          saveLocalTributes(updated);
+          return updated;
+        });
+      }
     });
 
     return () => {

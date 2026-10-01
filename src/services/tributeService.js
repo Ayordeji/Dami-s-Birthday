@@ -230,9 +230,33 @@ export async function likeTributeInDb(id, currentLikes = 0) {
   }
 }
 
-// Subscribe to real-time additions
-export function subscribeToRealtimeTributes(onNewTribute) {
+// Subscribe to real-time events (INSERT, UPDATE, DELETE)
+export function subscribeToRealtimeTributes(handlers) {
   if (!isSupabaseConfigured || !supabase) return () => {};
+
+  const onInsert = typeof handlers === 'function' ? handlers : handlers?.onInsert;
+  const onUpdate = handlers?.onUpdate;
+  const onDelete = handlers?.onDelete;
+
+  const mapItem = (item) => ({
+    id: item.id,
+    name: item.name,
+    relationship: item.relationship,
+    relationshipCategory: item.relationship_category || 'friends',
+    threeWords: item.three_words || '',
+    appreciation: item.appreciation || '',
+    standoutQuality: item.standout_quality || '',
+    describeToStranger: item.describe_to_stranger || '',
+    birthdayWish: item.birthday_wish || '',
+    prayer: item.prayer || '',
+    futureMessage: item.future_message || '',
+    likes: item.likes || 0,
+    isWife: item.is_wife || false,
+    isDaughter: item.is_daughter || false,
+    isApproved: item.is_approved !== undefined ? item.is_approved : true,
+    photoUrl: item.photo_url || null,
+    date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+  });
 
   const channel = supabase
     .channel('public:tributes')
@@ -240,25 +264,28 @@ export function subscribeToRealtimeTributes(onNewTribute) {
       'postgres_changes',
       { event: 'INSERT', schema: 'public', table: 'tributes' },
       (payload) => {
-        const item = payload.new;
-        const newTribute = {
-          id: item.id,
-          name: item.name,
-          relationship: item.relationship,
-          relationshipCategory: item.relationship_category || 'friends',
-          threeWords: item.three_words || '',
-          appreciation: item.appreciation || '',
-          standoutQuality: item.standout_quality || '',
-          describeToStranger: item.describe_to_stranger || '',
-          birthdayWish: item.birthday_wish || '',
-          prayer: item.prayer || '',
-          futureMessage: item.future_message || '',
-          likes: item.likes || 0,
-          isWife: item.is_wife || false,
-          photoUrl: item.photo_url || null,
-          date: item.created_at ? new Date(item.created_at).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
-        };
-        onNewTribute(newTribute);
+        if (payload.new && onInsert) {
+          onInsert(mapItem(payload.new));
+        }
+      }
+    )
+    .on(
+      'postgres_changes',
+      { event: 'UPDATE', schema: 'public', table: 'tributes' },
+      (payload) => {
+        if (payload.new && onUpdate) {
+          onUpdate(mapItem(payload.new));
+        }
+      }
+    )
+    .on(
+      'postgres_changes',
+      { event: 'DELETE', schema: 'public', table: 'tributes' },
+      (payload) => {
+        const oldId = payload.old?.id;
+        if (oldId && onDelete) {
+          onDelete(oldId);
+        }
       }
     )
     .subscribe();
