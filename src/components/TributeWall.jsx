@@ -92,110 +92,126 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
         </div>
 
         {/* Luxury Editorial Tribute Cards Grid */}
-        <div className="tribute-cards-grid">
-          {filteredTributes.map((tribute) => (
-            <div 
-              key={tribute.id} 
-              className={`tribute-editorial-card ${tribute.isWife ? 'is-wife-card' : ''} ${tribute.isDaughter ? 'is-daughter-card' : ''}`}
-            >
-              
-              {/* Card Header */}
-              <div className="tribute-card-top">
-                <div className="author-info-group">
-                  <div className="author-avatar-badge">
-                    {tribute.name.charAt(0)}
-                  </div>
-                  <div className="author-text-meta">
-                    <h4 className="author-title font-serif">{tribute.name}</h4>
-                    <span className="author-relationship-pill">{tribute.relationship}</span>
-                  </div>
-                </div>
-
-                <div className="tribute-formatted-date font-sans">
-                  {formatDate(tribute.date)}
-                </div>
-              </div>
-
-              {/* 3 Words Tag - Chic Minimalist */}
-              {tribute.threeWords && (
-                <div className="three-words-editorial">
-                  <span className="three-words-prefix">In 3 words:</span>
-                  <span className="three-words-content font-serif">“{tribute.threeWords}”</span>
-                </div>
-              )}
-
-              {/* Main Birthday Wish - Big Elegant Serif */}
-              {tribute.birthdayWish && (
-                <div className="main-wish-wrap">
-                  <p className="main-wish-text font-serif">
-                    “{tribute.birthdayWish}”
-                  </p>
-                </div>
-              )}
-
-              {/* Prayer Section - Warm Cream Container with subtle border */}
-              {tribute.prayer && (
-                <div className="editorial-prayer-box">
-                  <div className="prayer-box-header">
-                    <span className="prayer-label font-sans">🙏🏽 Prayer for this chapter</span>
-                  </div>
-                  <p className="prayer-body font-serif">
-                    {tribute.prayer}
-                  </p>
-                </div>
-              )}
-
-              {/* What stands out / Appreciation */}
-              {(tribute.standoutQuality || tribute.appreciation) && (
-                <div className="editorial-detail-row">
-                  <span className="detail-tag font-sans">✨ What stands out</span>
-                  <p className="detail-text font-sans">
-                    {tribute.standoutQuality || tribute.appreciation}
-                  </p>
-                </div>
-              )}
-
-              {/* 5-Year Time Capsule Note */}
-              {tribute.futureMessage && (
-                <div className="editorial-detail-row future-detail-row">
-                  <span className="detail-tag font-sans">⏳ Note for 5 years later</span>
-                  <p className="detail-text font-sans">
-                    {tribute.futureMessage}
-                  </p>
-                </div>
-              )}
-
-              {/* Attached Photo */}
-              {tribute.photoUrl && (
-                <div 
-                  className="attached-photo-frame" 
-                  onClick={() => setActivePhotoModal(tribute.photoUrl)}
-                  title="Click to enlarge memory photo"
-                >
-                  <img src={tribute.photoUrl} alt={`Memory shared by ${tribute.name}`} />
-                  <span className="photo-zoom-hint font-sans">🔍 View Memory</span>
-                </div>
-              )}
-
-              {/* Card Footer with Heart Reaction */}
-              <div className="tribute-card-bottom">
-                <button 
-                  onClick={() => handleLike(tribute.id)} 
-                  className="heart-pill-action"
-                  title="Send Love"
-                >
-                  <Heart size={15} fill="#c70101" color="#c70101" />
-                  <span className="like-count">{tribute.likes || 0}</span>
-                </button>
-
-                <div className="tribute-card-tagline font-script">
-                  Blessings & Love
-                </div>
-              </div>
-
+        {filteredTributes.length === 0 ? (
+          <div className="tribute-wall-empty-state">
+            <div className="empty-sparkle-wrap">
+              <Sparkles size={28} />
             </div>
-          ))}
-        </div>
+            <h3 className="font-serif empty-title">The Wall is Waiting for Your Words</h3>
+            <p className="font-serif empty-sub">
+              Be the first to write a heartfelt birthday memory, celebration wish, or prayer for Dami!
+            </p>
+            <button onClick={onOpenSubmitModal} className="btn btn-dark btn-md">
+              <span>Write the First Tribute</span>
+              <ArrowRight size={15} />
+            </button>
+          </div>
+        ) : (
+          <div className="tribute-cards-grid">
+            {filteredTributes.map((tribute) => (
+              <div 
+                key={tribute.id} 
+                className={`tribute-editorial-card ${tribute.isWife ? 'is-wife-card' : ''} ${tribute.isDaughter ? 'is-daughter-card' : ''}`}
+              >
+                
+                {/* Card Header */}
+                <div className="tribute-card-top">
+                  <div className="author-info-group">
+                    <div className="author-avatar-badge">
+                      {tribute.name.charAt(0)}
+                    </div>
+                    <div className="author-text-meta">
+                      <h4 className="author-title font-serif">{tribute.name}</h4>
+                      <span className="author-relationship-pill">{tribute.relationship}</span>
+                    </div>
+                  </div>
+
+                  <div className="tribute-formatted-date font-sans">
+                    {formatDate(tribute.date)}
+                  </div>
+                </div>
+
+                {/* 3 Words Tag - Chic Minimalist */}
+                {tribute.threeWords && (
+                  <div className="three-words-editorial">
+                    <span className="three-words-prefix">In 3 words:</span>
+                    <span className="three-words-content font-serif">“{tribute.threeWords}”</span>
+                  </div>
+                )}
+
+                {/* Main Birthday Wish - Big Elegant Serif */}
+                {tribute.birthdayWish && (
+                  <div className="main-wish-wrap">
+                    <p className="main-wish-text font-serif">
+                      “{tribute.birthdayWish}”
+                    </p>
+                  </div>
+                )}
+
+                {/* Prayer Section - Warm Cream Container with subtle border */}
+                {tribute.prayer && (
+                  <div className="editorial-prayer-box">
+                    <div className="prayer-box-header">
+                      <span className="prayer-label font-sans">🙏🏽 Prayer for this chapter</span>
+                    </div>
+                    <p className="prayer-body font-serif">
+                      {tribute.prayer}
+                    </p>
+                  </div>
+                )}
+
+                {/* What stands out / Appreciation */}
+                {(tribute.standoutQuality || tribute.appreciation) && (
+                  <div className="editorial-detail-row">
+                    <span className="detail-tag font-sans">✨ What stands out</span>
+                    <p className="detail-text font-sans">
+                      {tribute.standoutQuality || tribute.appreciation}
+                    </p>
+                  </div>
+                )}
+
+                {/* 5-Year Time Capsule Note */}
+                {tribute.futureMessage && (
+                  <div className="editorial-detail-row future-detail-row">
+                    <span className="detail-tag font-sans">⏳ Note for 5 years later</span>
+                    <p className="detail-text font-sans">
+                      {tribute.futureMessage}
+                    </p>
+                  </div>
+                )}
+
+                {/* Attached Photo */}
+                {tribute.photoUrl && (
+                  <div 
+                    className="attached-photo-frame" 
+                    onClick={() => setActivePhotoModal(tribute.photoUrl)}
+                    title="Click to enlarge memory photo"
+                  >
+                    <img src={tribute.photoUrl} alt={`Memory shared by ${tribute.name}`} />
+                    <span className="photo-zoom-hint font-sans">🔍 View Memory</span>
+                  </div>
+                )}
+
+                {/* Card Footer with Heart Reaction */}
+                <div className="tribute-card-bottom">
+                  <button 
+                    onClick={() => handleLike(tribute.id)} 
+                    className="heart-pill-action"
+                    title="Send Love"
+                  >
+                    <Heart size={15} fill="#c70101" color="#c70101" />
+                    <span className="like-count">{tribute.likes || 0}</span>
+                  </button>
+
+                  <div className="tribute-card-tagline font-script">
+                    Blessings & Love
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* CTA Banner */}
         <div className="cta-banner editorial-card">
@@ -572,6 +588,43 @@ export default function TributeWall({ tributes, onLikeTribute, onOpenSubmitModal
           font-size: 1.35rem;
           color: var(--text-muted);
           opacity: 0.8;
+        }
+
+        /* Empty State */
+        .tribute-wall-empty-state {
+          background: #ffffff;
+          border: 1px dashed var(--border-medium);
+          border-radius: var(--radius-xl);
+          padding: 3.5rem 1.5rem;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 3.5rem;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+        .empty-sparkle-wrap {
+          width: 58px;
+          height: 58px;
+          border-radius: 50%;
+          background: #ffccf6;
+          color: #262626;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 0.25rem;
+        }
+        .empty-title {
+          font-size: 1.6rem;
+          color: #262626;
+        }
+        .empty-sub {
+          font-size: 1.05rem;
+          color: var(--text-secondary);
+          max-width: 440px;
+          line-height: 1.5;
+          margin-bottom: 0.5rem;
         }
 
         /* CTA Banner */

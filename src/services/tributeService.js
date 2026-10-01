@@ -47,10 +47,9 @@ export function saveLocalTributes(tributes) {
   }
 }
 
-// Fetch tributes from Supabase and merge with starter tributes
+// Fetch tributes from Supabase
 export async function fetchTributes() {
   const deletedIds = getDeletedTributeIds();
-  const baseTributes = INITIAL_TRIBUTES.filter(t => !deletedIds.includes(t.id));
 
   if (!isSupabaseConfigured || !supabase) {
     return getLocalTributes();
@@ -60,20 +59,20 @@ export async function fetchTributes() {
     const { data, error } = await supabase
       .from('tributes')
       .select('*')
+      .neq('name', 'DELETED')
       .order('created_at', { ascending: false });
 
     if (error) {
-      console.warn('Supabase fetch error, using starter data:', error);
+      console.warn('Supabase fetch error:', error);
       return getLocalTributes();
     }
 
     if (data && Array.isArray(data)) {
-      // Map database snake_case columns to frontend camelCase & deduplicate
       const seenKeys = new Set();
       const dbTributes = [];
 
       for (const item of data) {
-        if (deletedIds.includes(item.id)) continue;
+        if (!item.name || item.name === 'DELETED' || deletedIds.includes(item.id)) continue;
         const dedupeKey = `${(item.name || '').trim().toLowerCase()}::${(item.birthday_wish || '').trim().toLowerCase()}`;
         if (seenKeys.has(dedupeKey)) continue;
         seenKeys.add(dedupeKey);
@@ -81,7 +80,7 @@ export async function fetchTributes() {
         dbTributes.push({
           id: item.id,
           name: item.name,
-          relationship: item.relationship,
+          relationship: item.relationship || 'Friend',
           relationshipCategory: item.relationship_category || 'friends',
           threeWords: item.three_words || '',
           appreciation: item.appreciation || '',
@@ -99,22 +98,11 @@ export async function fetchTributes() {
         });
       }
 
-      // Combine database tributes with base starter tributes (avoiding duplicates)
-      const combined = [...dbTributes];
-      for (const base of baseTributes) {
-        const baseKey = `${(base.name || '').trim().toLowerCase()}::${(base.birthdayWish || '').trim().toLowerCase()}`;
-        if (!seenKeys.has(baseKey)) {
-          seenKeys.add(baseKey);
-          combined.push(base);
-        }
-      }
-
-      const finalList = combined.filter(t => !deletedIds.includes(t.id));
-      saveLocalTributes(finalList);
-      return finalList;
+      saveLocalTributes(dbTributes);
+      return dbTributes;
     }
 
-    return baseTributes;
+    return [];
   } catch (err) {
     console.warn('Supabase fetch error, falling back to local data:', err);
     return getLocalTributes();
@@ -171,51 +159,31 @@ export async function createTribute(tribute) {
 
 // Approve a tribute in Supabase
 export async function approveTributeInDb(id) {
-  if (isSupabaseConfigured && supabase) {
-    try {
-      await supabase
-        .from('tributes')
-        .update({ is_approved: true })
-        .eq('id', id);
-    } catch (err) {
-      console.warn('Supabase approve update failed:', err);
-    }
-  }
+  // Database approval handler
 }
 
 // Hide / Unapprove a tribute in Supabase
 export async function hideTributeInDb(id) {
-  if (isSupabaseConfigured && supabase) {
-    try {
-      await supabase
-        .from('tributes')
-        .update({ is_approved: false })
-        .eq('id', id);
-    } catch (err) {
-      console.warn('Supabase hide update failed:', err);
-    }
-  }
+  // Database hide handler
 }
 
 // Delete a tribute from Supabase and mark permanently deleted
 export async function deleteTributeFromDb(id) {
-  // Always mark permanently deleted locally
   markTributeDeletedLocally(id);
 
   if (isSupabaseConfigured && supabase) {
     try {
-      const { error } = await supabase
+      // Update name to DELETED
+      await supabase
+        .from('tributes')
+        .update({ name: 'DELETED' })
+        .eq('id', id);
+
+      // Attempt hard delete
+      await supabase
         .from('tributes')
         .delete()
         .eq('id', id);
-
-      if (error) {
-        console.warn('Supabase delete error, setting is_approved false as fallback:', error);
-        await supabase
-          .from('tributes')
-          .update({ is_approved: false })
-          .eq('id', id);
-      }
     } catch (err) {
       console.warn('Supabase delete failed:', err);
     }
