@@ -1,5 +1,6 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { INITIAL_TRIBUTES } from '../data/initialData';
+import { sendTributeNotification } from './notificationService';
 
 const LOCAL_STORAGE_KEY = 'dami_birthday_tributes';
 
@@ -110,6 +111,11 @@ export async function fetchTributes() {
 
 // Save a new tribute to Supabase + LocalStorage
 export async function createTribute(tribute) {
+  // Fire email notification in background
+  sendTributeNotification(tribute).catch((err) => {
+    console.warn('Notification trigger caught error:', err);
+  });
+
   if (isSupabaseConfigured && supabase) {
     try {
       const payload = {
